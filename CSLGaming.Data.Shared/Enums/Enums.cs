@@ -1,4 +1,4 @@
-﻿namespace eShop.Data.Shared.Enums;
+﻿namespace CSLGaming.Data.Shared.Enums;
 
 public enum OptionType
 {
