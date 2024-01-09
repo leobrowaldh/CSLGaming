@@ -4,3 +4,8 @@ public enum OptionType
 {
     CheckBox, RadioButton, Slider
 }
+
+public enum enOS
+{
+    Windows, Mac, Linux
+}
