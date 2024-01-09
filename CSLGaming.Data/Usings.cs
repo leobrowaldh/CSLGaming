@@ -1,0 +1,1 @@
+﻿global using CSLGaming.Data.Shared.Interfaces;

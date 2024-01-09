@@ -5,6 +5,8 @@ VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSLGaming.Data", "CSLGaming.Data\CSLGaming.Data.csproj", "{0112DD3F-01D8-407E-B205-6BCEA035DBED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSLGaming.Data.Shared", "CSLGaming.Data.Shared\CSLGaming.Data.Shared.csproj", "{F5837916-7CAF-4919-ACF5-BEB7B269C1A7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{0112DD3F-01D8-407E-B205-6BCEA035DBED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0112DD3F-01D8-407E-B205-6BCEA035DBED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0112DD3F-01D8-407E-B205-6BCEA035DBED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5837916-7CAF-4919-ACF5-BEB7B269C1A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5837916-7CAF-4919-ACF5-BEB7B269C1A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5837916-7CAF-4919-ACF5-BEB7B269C1A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5837916-7CAF-4919-ACF5-BEB7B269C1A7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
