@@ -1,7 +1,7 @@
 ﻿
 namespace CSLGaming.Data.Entities;
 
-internal class AgeRestriction : IEntity
+public class AgeRestriction : IEntity
 {
     public int Id { get; set; }
     public enAgeRestriction Age { get; set; }
