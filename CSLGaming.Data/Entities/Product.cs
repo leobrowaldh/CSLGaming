@@ -10,6 +10,6 @@ internal class Product : IEntity
     public int ReleaseYear { get; set; }
     public List<OS>? OSs { get; set; }
     public List<Genere>? Generes { get; set; }
-    public List<AgeRestriction>? AgeRestrictions { get; set; } 
+    public AgeRestriction? AgeRestriction { get; set; } 
 
 }
