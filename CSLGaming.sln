@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSLGaming.Data", "CSLGaming.Data\CSLGaming.Data.csproj", "{0112DD3F-01D8-407E-B205-6BCEA035DBED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSLGaming.Data", "CSLGaming.Data\CSLGaming.Data.csproj", "{0112DD3F-01D8-407E-B205-6BCEA035DBED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSLGaming.Data.Shared", "CSLGaming.Data.Shared\CSLGaming.Data.Shared.csproj", "{F5837916-7CAF-4919-ACF5-BEB7B269C1A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSLGaming.Data.Shared", "CSLGaming.Data.Shared\CSLGaming.Data.Shared.csproj", "{F5837916-7CAF-4919-ACF5-BEB7B269C1A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSLGaming.API.Category", "CSLGaming.API.Category\CSLGaming.API.Category.csproj", "{3E58B427-AB8D-41BB-AC5F-FFAC718A4989}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{F5837916-7CAF-4919-ACF5-BEB7B269C1A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5837916-7CAF-4919-ACF5-BEB7B269C1A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F5837916-7CAF-4919-ACF5-BEB7B269C1A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E58B427-AB8D-41BB-AC5F-FFAC718A4989}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E58B427-AB8D-41BB-AC5F-FFAC718A4989}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E58B427-AB8D-41BB-AC5F-FFAC718A4989}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E58B427-AB8D-41BB-AC5F-FFAC718A4989}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
