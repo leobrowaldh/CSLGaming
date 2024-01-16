@@ -6,12 +6,13 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // SQL Server Service Registration
-builder.Services.AddDbContext<CSLGamingContext>(
+builder.Services.AddDbContext<CSLGamingContext>( // Lägger till Contexten!
     options =>
         options.UseSqlServer(
-            builder.Configuration.GetConnectionString("CSLGamingConnection")));
+            builder.Configuration.GetConnectionString("CSLGamingConnection"))); // Läser ifrån namnet vi har valt i app-settings. De matchar inte blir förvirrad (Ta bort sen*)
 
-var app = builder.Build();
+var app = builder.Build(); // Ovanför här registrerar vi klasserna vi vill använda! (Ta bort sen)
+// Pipeline är kopplingar som skickar data, fram och tillbaka, Det är viktigt med ordningarna, så att dina anrop körs vid rätt punkt.
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
