@@ -16,6 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CSLGaming.API.DTO\CSLGaming.API.DTO.csproj" />
+    <ProjectReference Include="..\CSLGaming.API.Extensions\CSLGaming.API.Extensions.csproj" />
     <ProjectReference Include="..\CSLGaming.Data.Shared\CSLGaming.Data.Shared.csproj" />
     <ProjectReference Include="..\CSLGaming.Data\CSLGaming.Data.csproj" />
   </ItemGroup>
