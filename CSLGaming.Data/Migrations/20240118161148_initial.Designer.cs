@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CSLGaming.Data.Migrations
 {
     [DbContext(typeof(CSLGamingContext))]
-    [Migration("20240111130612_Initial")]
-    partial class Initial
+    [Migration("20240118161148_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,6 +36,9 @@ namespace CSLGaming.Data.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
+                    b.Property<int>("OptionType")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("AgeRestrictions");
@@ -48,6 +51,17 @@ namespace CSLGaming.Data.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("OptionType")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TypeName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -63,6 +77,9 @@ namespace CSLGaming.Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("GenereType")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OptionType")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -94,6 +111,9 @@ namespace CSLGaming.Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("OSType")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OptionType")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -132,7 +152,7 @@ namespace CSLGaming.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18, 2)");
 
                     b.Property<double>("Rating")
                         .HasColumnType("float");

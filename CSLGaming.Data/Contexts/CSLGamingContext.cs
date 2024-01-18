@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -42,7 +43,12 @@ namespace CSLGaming.Data.Contexts
             builder.Entity<OS>()
                 .HasMany(O => O.Products)
                 .WithMany(P => P.OSs)
-                .UsingEntity<OSProduct>();
+            .UsingEntity<OSProduct>();
+
+            //Configuring the precision and scale of the Price property
+            builder.Entity<Product>()
+                .Property(p => p.Price)
+                .HasColumnType("decimal(18, 2)");
 
         }
     }
