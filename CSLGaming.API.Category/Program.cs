@@ -11,6 +11,16 @@ builder.Services.AddDbContext<CSLGamingContext>( // Lägger till Contexten!
         options.UseSqlServer(
             builder.Configuration.GetConnectionString("CSLGamingConnection"))); // Läser ifrån namnet vi har valt i app-settings. De matchar inte blir förvirrad (Ta bort sen*)
 
+//CORS Access policy
+builder.Services.AddCors(policy =>
+{
+    policy.AddPolicy("CorsAllAccessPolicy", opt =>
+        opt.AllowAnyOrigin()
+           .AllowAnyHeader()
+           .AllowAnyMethod()
+    );
+});
+
 var app = builder.Build(); // Ovanför här registrerar vi Contexten vi vill använda! (Ta bort sen)
 // Pipeline är kopplingar som skickar data, fram och tillbaka, Det är viktigt med ordningarna, så att dina anrop körs vid rätt punkt.
 
