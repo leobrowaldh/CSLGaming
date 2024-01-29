@@ -1,4 +1,4 @@
-﻿namespace CSLGaming.Data.Shared.Enums;
+﻿namespace CSLGaming.Data.Shared;
 
 public enum enOptionType
 {

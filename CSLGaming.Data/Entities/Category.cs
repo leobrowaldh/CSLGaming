@@ -1,4 +1,5 @@
 ﻿
+
 namespace CSLGaming.Data.Entities;
 
 public class Category : IEntity

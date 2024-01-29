@@ -1,5 +1,5 @@
 ﻿
-namespace CSLGaming.Data.Shared.Interfaces;
+namespace CSLGaming.Data.Shared;
 
 public interface IEntity
 {

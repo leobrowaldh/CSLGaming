@@ -1,5 +1,4 @@
 ﻿
-using CSLGaming.Data.Shared.Enums;
 
 namespace CSLGaming.Data.Entities;
 
