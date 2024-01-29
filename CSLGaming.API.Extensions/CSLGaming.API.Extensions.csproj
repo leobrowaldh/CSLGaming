@@ -14,6 +14,7 @@
     
   <ItemGroup>
     <ProjectReference Include="..\CSLGaming.Data.Shared\CSLGaming.Data.Shared.csproj" />
+    <ProjectReference Include="..\CSLGaming.Data\CSLGaming.Data.csproj" />
   </ItemGroup>
 
 </Project>
