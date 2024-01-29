@@ -49,10 +49,10 @@ void ConfigureAutoMapper()
 {
     var config = new MapperConfiguration(cfg =>
     {
-        cfg.CreateMap<Product, ProductPostDTO>().ReverseMap();
-        cfg.CreateMap<Product, ProductPutDTO>().ReverseMap();
-        cfg.CreateMap<Product, ProductGetDTO>().ReverseMap();
-        cfg.CreateMap<Product, ProductSmallGetDTO>().ReverseMap();
+        cfg.CreateMap<Category, CategoryPostDTO>().ReverseMap();
+        cfg.CreateMap<Category, CategoryPutDTO>().ReverseMap();
+        cfg.CreateMap<Category, CategoryGetDTO>().ReverseMap();
+        cfg.CreateMap<Category, CategorySmallGetDTO>().ReverseMap();
     });
 
     var mapper = config.CreateMapper();

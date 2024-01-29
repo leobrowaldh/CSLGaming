@@ -8,6 +8,11 @@ namespace CSLGaming.Data
         private readonly CSLGamingContext _db;
         private readonly IMapper _mapper;
 
+        public DbService(CSLGamingContext db, IMapper mapper)
+        {
+            _db = db;
+            this._mapper = mapper;
+        }
 
         public async Task<TEntity> AddAsync<TEntity, TDto>(TDto dto) where TEntity : class where TDto : class
         {
@@ -32,7 +37,7 @@ namespace CSLGaming.Data
             }
         }
 
-        public async Task<List<TDto>> GetAsync<TEntity, TDto>()
+        public virtual async Task<List<TDto>> GetAsync<TEntity, TDto>()
             where TEntity : class
             where TDto : class
         {
@@ -40,24 +45,53 @@ namespace CSLGaming.Data
             return _mapper.Map<List<TDto>>(entities);
         }
 
-        public Task<bool> SaveChangesAsync()
+        public async Task<bool> SaveChangesAsync() => await _db.SaveChangesAsync() >= 0;
+
+        public async Task<bool> DeleteAsync<TEntity>(int id)
+        where TEntity : class, IEntity
         {
-            throw new NotImplementedException();
+            try
+            {
+                var entity = await _db.Set<TEntity>()
+                    .SingleOrDefaultAsync(e => e.Id == id);
+
+                if (entity is null) return false;
+                _db.Remove(entity);
+            }
+            catch { return false; }
+
+            return true;
         }
 
-        Task<bool> IDbService.DeleteAsync<TEntity>(int id)
+        public virtual async Task<TDto> SingleAsync<TEntity, TDto>(int id) where TEntity : class, IEntity where TDto : class
         {
-            throw new NotImplementedException();
+            var entity = await _db.Set<TEntity>().SingleOrDefaultAsync(e => e.Id == id);
+            return _mapper.Map<TDto>(entity);
         }
 
-        Task<TDto> IDbService.SingleAsync<TEntity, TDto>(int id)
+        public void Update<TEntity, TDto>(TDto dto)
+        where TEntity : class, IEntity where TDto : class
         {
-            throw new NotImplementedException();
+            // Note that this method isn't asynchronous because Update modifies
+            // an already exisiting object in memory, which is very fast.
+            var entity = _mapper.Map<TEntity>(dto);
+            _db.Set<TEntity>().Update(entity);
         }
 
-        void IDbService.Update<TEntity, TDto>(TDto dto)
-        {
-            throw new NotImplementedException();
+        public void IncludeNavigationsFor<TEntity>() where TEntity : class
+        {   // Skip Navigation Properties are used for many-to-many
+            // relationsips (List or ICollection) and Navigation Properties
+            // are used for one-to-many relationsips.
+            var propertyNames = _db.Model.FindEntityType(typeof(TEntity))?.GetNavigations().Select(e => e.Name);
+            var navigationPropertyNames = _db.Model.FindEntityType(typeof(TEntity))?.GetSkipNavigations().Select(e => e.Name);
+
+            if (propertyNames is not null)
+                foreach (var name in propertyNames)
+                    _db.Set<TEntity>().Include(name).Load();
+
+            if (navigationPropertyNames is not null)
+                foreach (var name in navigationPropertyNames)
+                    _db.Set<TEntity>().Include(name).Load();
         }
     }
 }
