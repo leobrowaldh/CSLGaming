@@ -7,7 +7,7 @@ using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CSLGaming.Data.Contexts
+namespace CSLGaming.Data
 {
     public class CSLGamingContext(DbContextOptions<CSLGamingContext> builder) : DbContext(builder) // <--- Constructor med parameter som allt detta skall struktureras ifrån
     {

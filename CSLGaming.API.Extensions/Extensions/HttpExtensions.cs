@@ -1,4 +1,4 @@
-﻿namespace CSLGaming.API.Extensions.Extensions
+﻿namespace CSLGaming.API.Extensions
 {
     public static class HttpExtensions
     {

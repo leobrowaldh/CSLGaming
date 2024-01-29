@@ -1,5 +1,5 @@
 ﻿
-namespace CSLGaming.Data.Entities;
+namespace CSLGaming.Data;
 
 public class Product : IEntity
 {

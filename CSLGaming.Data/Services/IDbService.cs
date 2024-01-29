@@ -1,11 +1,6 @@
-﻿using CSLGaming.Data.Shared.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
-namespace CSLGaming.Data.Services
+namespace CSLGaming.Data
 {
     public interface IDbService
     {

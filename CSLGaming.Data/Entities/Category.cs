@@ -1,6 +1,6 @@
 ﻿
 
-namespace CSLGaming.Data.Entities;
+namespace CSLGaming.Data;
 
 public class Category : IEntity
 {

@@ -1,5 +1,5 @@
-﻿global using CSLGaming.Data.Contexts;
+﻿global using CSLGaming.Data;
 global using Microsoft.EntityFrameworkCore;
-global using CSLGaming.API.Extensions.Extensions;
-global using CSLGaming.Data.Entities;
+global using CSLGaming.API.Extensions;
 global using CSLGaming.API.DTO;
+global using CSLGaming.Data.Shared;
