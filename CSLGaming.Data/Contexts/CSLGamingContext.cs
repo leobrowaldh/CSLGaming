@@ -11,12 +11,12 @@ namespace CSLGaming.Data.Contexts
 {
     public class CSLGamingContext(DbContextOptions<CSLGamingContext> builder) : DbContext(builder) // <--- Constructor med parameter som allt detta skall struktureras ifrån
     {
-        public DbSet<Product> Products => Set<Product>();
+        public DbSet<CategoryProduct> Products => Set<CategoryProduct>();
         public DbSet<AgeRestriction> AgeRestrictions => Set<AgeRestriction>(); // Definerar Databasens utseende genom att säga vilken
         public DbSet<Filter> Filters => Set<Filter>();                         // Entitet skall tillhöra vilken propertie i självaste databasen
         public DbSet<Genere> Generes => Set<Genere>();
         public DbSet<GenereProduct> GenereProducts => Set<GenereProduct>();
-        public DbSet<OS> OSs => Set<OS>();
+        public DbSet<Category> OSs => Set<Category>();
         public DbSet<OSProduct> OsProducts => Set<OSProduct>();
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -40,13 +40,13 @@ namespace CSLGaming.Data.Contexts
                 .UsingEntity<GenereProduct>(); // <-- Klargör vilken merge table detta tillhör
 
                                                // (Fråga!) <-- Tror inte vi "behöver" göra på båda sätten, fråga Jonas då han använda sig av båda i sitt projekt
-            builder.Entity<OS>()
+            builder.Entity<Category>()
                 .HasMany(O => O.Products)
                 .WithMany(P => P.OSs)
             .UsingEntity<OSProduct>();
 
             //Configuring the precision and scale of the Price property
-            builder.Entity<Product>()
+            builder.Entity<CategoryProduct>()
                 .Property(p => p.Price)
                 .HasColumnType("decimal(18, 2)");
 

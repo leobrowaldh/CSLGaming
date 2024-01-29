@@ -1,8 +1,8 @@
 ﻿
 namespace CSLGaming.Data.Entities;
 
-public class OSProduct
+public class CategoryProduct
 {
     public int ProductId { get; set; }
-    public int OSId { get; set; }
+    public int CategoryId { get; set; }
 }

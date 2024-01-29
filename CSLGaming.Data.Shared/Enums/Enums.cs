@@ -5,9 +5,9 @@ public enum enOptionType
     CheckBox, RadioButton, Slider
 }
 
-public enum enOS
+public enum enCategory
 {
-    Windows, Mac, Linux
+    Windows, Mac, Linux, Playstation, Xbox, Wii
 }
 
 public enum enGenere

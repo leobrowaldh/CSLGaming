@@ -39,6 +39,6 @@ app.Run();
 
 void RegisterEndpoints()
 {
-    app.AddEndpoint<Product, ProductPostDTO , ProductPutDTO, ProductGetDTO>();
+    app.AddEndpoint<CategoryProduct, ProductPostDTO , ProductPutDTO, ProductGetDTO>();
    
 }
