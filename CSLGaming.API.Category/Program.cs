@@ -1,3 +1,5 @@
+using AutoMapper;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -41,4 +43,18 @@ void RegisterEndpoints()
 {
     app.AddEndpoint<CategoryProduct, ProductPostDTO , ProductPutDTO, ProductGetDTO>();
    
+}
+
+void ConfigureAutoMapper()
+{
+    var config = new MapperConfiguration(cfg =>
+    {
+        cfg.CreateMap<Product, ProductPostDTO>().ReverseMap();
+        cfg.CreateMap<Product, ProductPutDTO>().ReverseMap();
+        cfg.CreateMap<Product, ProductGetDTO>().ReverseMap();
+        cfg.CreateMap<Product, ProductSmallGetDTO>().ReverseMap();
+    });
+
+    var mapper = config.CreateMapper();
+    builder.Services.AddSingleton(mapper);
 }

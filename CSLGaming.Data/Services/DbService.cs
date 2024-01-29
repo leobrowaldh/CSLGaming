@@ -1,32 +1,43 @@
-﻿
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 
 namespace CSLGaming.Data
 {
     public class DbService : IDbService
     {
-        private readonly CSLGamingContext _context;
-        
+        private readonly CSLGamingContext _db;
+        private readonly IMapper _mapper;
 
 
-        public Task<TEntity> AddAsync<TEntity, TDto>(TDto dto)
-            where TEntity : class
-            where TDto : class
+        public async Task<TEntity> AddAsync<TEntity, TDto>(TDto dto) where TEntity : class where TDto : class
         {
-            throw new NotImplementedException();
+            var entity = _mapper.Map<TEntity>(dto);
+            await _db.Set<TEntity>().AddAsync(entity);
+            return entity;
         }
 
         public bool Delete<TEntity, TDto>(TDto dto)
-            where TEntity : class
-            where TDto : class
+        where TEntity : class where TDto : class
         {
-            throw new NotImplementedException();
+            try
+            {
+                var entity = _mapper.Map<TEntity>(dto);
+                if (entity is null) return false;
+                _db.Remove(entity);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
-        public Task<List<TDto>> GetAsync<TEntity, TDto>()
+        public async Task<List<TDto>> GetAsync<TEntity, TDto>()
             where TEntity : class
             where TDto : class
         {
-            throw new NotImplementedException();
+            var entities = await _db.Set<TEntity>().ToListAsync();
+            return _mapper.Map<List<TDto>>(entities);
         }
 
         public Task<bool> SaveChangesAsync()
