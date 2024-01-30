@@ -1,11 +1,4 @@
-﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CSLGaming.Data.Services
+﻿namespace CSLGaming.Data.Services
 {
     public class ProductDbService(CSLGamingContext db, IMapper mapper) : DbService(db, mapper)
     {
