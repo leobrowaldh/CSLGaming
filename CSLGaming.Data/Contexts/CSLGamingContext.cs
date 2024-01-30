@@ -1,5 +1,8 @@
 ﻿
 
+using Microsoft.EntityFrameworkCore;
+using System.Reflection.Metadata;
+
 namespace CSLGaming.Data
 {
     public class CSLGamingContext(DbContextOptions<CSLGamingContext> builder) : DbContext(builder) 
@@ -44,6 +47,10 @@ namespace CSLGaming.Data
                 .HasMany(c => c.Filters)
                 .WithMany(f => f.Categories)
             .UsingEntity<CategoryFilter>();
+
+            
+
+          
 
             #endregion
 

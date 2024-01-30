@@ -10,6 +10,7 @@ public class Product : IEntity
     public int ReleaseYear { get; set; }
     public List<Category>? Categories { get; set; }
     public List<Genere>? Generes { get; set; }
-    public AgeRestriction? AgeRestriction { get; set; } 
+    public int AgeRestrictionId { get; set; }
+    public AgeRestriction? AgeRestriction { get; set; }
 
 }

@@ -20,8 +20,4 @@
     <ProjectReference Include="..\CSLGaming.Data.Shared\CSLGaming.Data.Shared.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Migrations\" />
-  </ItemGroup>
-
 </Project>
