@@ -1,4 +1,4 @@
-using AutoMapper;
+using CSLGaming.Data.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +23,8 @@ builder.Services.AddCors(policy =>
     );
 });
 
+RegisterServices();
+
 var app = builder.Build(); // Ovanför här registrerar vi Contexten vi vill använda! (Ta bort sen)
 // Pipeline är kopplingar som skickar data, fram och tillbaka, Det är viktigt med ordningarna, så att dina anrop körs vid rätt punkt.
 
@@ -37,12 +39,21 @@ app.UseHttpsRedirection();
 
 RegisterEndpoints();
 
+
+
 app.Run();
 
 void RegisterEndpoints()
 {
     app.AddEndpoint<Category, CategoryPostDTO, CategoryPutDTO, CategoryGetDTO>();
    
+}
+
+
+void RegisterServices()
+{
+    ConfigureAutoMapper();
+    builder.Services.AddScoped<IDbService, CategoryDbService>();
 }
 
 void ConfigureAutoMapper()
