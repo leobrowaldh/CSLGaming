@@ -1,8 +1,11 @@
-﻿namespace CSLGaming.API.DTO;
+﻿using CSLGaming.Data.Shared;
+
+namespace CSLGaming.API.DTO;
 
 public class CategoryPostDTO
 {
-    public string Name { get; set; } = string.Empty;
+    public enCategory CategoryType { get; set; }
+    public enOptionType OptionType { get; set; }
 }
 public class CategoryPutDTO : CategoryPostDTO
 {

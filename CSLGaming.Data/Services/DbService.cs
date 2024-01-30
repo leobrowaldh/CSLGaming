@@ -13,7 +13,7 @@ namespace CSLGaming.Data
             this._mapper = mapper;
         }
 
-        public async Task<TEntity> AddAsync<TEntity, TDto>(TDto dto) where TEntity : class where TDto : class
+        public virtual async Task<TEntity> AddAsync<TEntity, TDto>(TDto dto) where TEntity : class where TDto : class
         {
             var entity = _mapper.Map<TEntity>(dto);
             await _db.Set<TEntity>().AddAsync(entity);
