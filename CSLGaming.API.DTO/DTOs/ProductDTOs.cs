@@ -17,6 +17,7 @@
     public class ProductGetDTO : ProductPutDTO
     {
         // public List<FilterGetDTO>? Filters { get; set; } - Kommer användas för att kunna få med allt, beroende på filter
+        
     }
 
     public class ProductSmallGetDTO : ProductPutDTO 
