@@ -9,9 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSLGaming.Data.Shared", "CS
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSLGaming.API.Category", "CSLGaming.API.Category\CSLGaming.API.Category.csproj", "{3E58B427-AB8D-41BB-AC5F-FFAC718A4989}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSLGaming.API.Extensions", "CSLGaming.API.Extensions\CSLGaming.API.Extensions.csproj", "{F5CEF069-7071-4991-9027-283D8EBA78B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSLGaming.API.Extensions", "CSLGaming.API.Extensions\CSLGaming.API.Extensions.csproj", "{F5CEF069-7071-4991-9027-283D8EBA78B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSLGaming.API.DTO", "CSLGaming.API.DTO\CSLGaming.API.DTO.csproj", "{411FC4EB-3D13-45D8-8B69-9208186E0A34}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSLGaming.API.DTO", "CSLGaming.API.DTO\CSLGaming.API.DTO.csproj", "{411FC4EB-3D13-45D8-8B69-9208186E0A34}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSLGaming.UI", "CSLGaming.UI\CSLGaming.UI.csproj", "{CE586008-31CB-4E42-8295-8B909E2D1FA0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{411FC4EB-3D13-45D8-8B69-9208186E0A34}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{411FC4EB-3D13-45D8-8B69-9208186E0A34}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{411FC4EB-3D13-45D8-8B69-9208186E0A34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE586008-31CB-4E42-8295-8B909E2D1FA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE586008-31CB-4E42-8295-8B909E2D1FA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE586008-31CB-4E42-8295-8B909E2D1FA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE586008-31CB-4E42-8295-8B909E2D1FA0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
