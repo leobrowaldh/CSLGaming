@@ -1,5 +1,4 @@
-﻿using CSLGaming.Data.Shared;
-
+﻿
 namespace CSLGaming.API.DTO;
 
 public class CategoryPostDTO

@@ -25,7 +25,6 @@ namespace CSLGaming.Data.Services
                 if (!Enum.IsDefined(typeof(enCategory), categoryEntity.CategoryType) ||
                     !Enum.IsDefined(typeof(enOptionType), categoryEntity.OptionType))
                 {
-                    
                     throw new ArgumentException("Invalid enum values in CategoryType or OptionType");
                 }
  

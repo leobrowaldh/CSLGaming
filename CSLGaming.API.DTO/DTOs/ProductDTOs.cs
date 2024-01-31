@@ -2,16 +2,14 @@
 {
     public class ProductPostDTO
     {
-        // Detta skall motsvara all information vi behöver beronde på funktion (Get, Post, osv...)
-
         public string Name { get; set; } = string.Empty;
         public decimal Price { get; set; }
         public double Rating { get; set; }
         public int ReleaseYear { get; set; }
-
+        public string? PictureUrl { get; set; }
     }
 
-    public class ProductPutDTO : ProductPostDTO // Put = Uppdatera existerande entitet
+    public class ProductPutDTO : ProductPostDTO
     {
         public int Id { get; set; }
     }
@@ -23,7 +21,9 @@
 
     public class ProductSmallGetDTO : ProductPutDTO 
     {
-        // Denna kommer användas för att hämta allt, utan filter o grejjer
+        public AgeRestrictionSmallGetDTO? AgeRestriction { get; set; }
+        public List<CategorySmallGetDTO>? Categories { get; set; }
+        public List<GenereSmallGetDTO>? Generes { get; set; }
     }
 
 }
