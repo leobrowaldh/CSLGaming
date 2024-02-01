@@ -27,40 +27,40 @@ h1:focus {
     color: white;
 }
 
-    .blazor-error-boundary::after {
-        content: "An error has occurred."
-    }
+.blazor-error-boundary::after {
+    content: "An error has occurred."
+}
 
 
-   /* .bi.bi-cart{
-        font-size: 8.5rem !important;
-    }*/
+/* .bi.bi-cart{
+    font-size: 8.5rem !important;
+}*/
 
-    header div img .dropdown .btn{
-        height: 49px;
-    }
+header div img, .dropdown .btn, header button{
+    height: 49px;
+}
 
-    .search-widht{
-        width: 25%;
-    }
+.search-widht{
+    width: 25%;
+}
 
-    #cart-button {
-        width: 49px;
-        width: 49px;
-    }
+#cart-button {
+    width: 49px;
+    width: 49px;
+}
 
-    .cart-count{
-        top: 0;
-        right:0;
-        padding: 2px 6px;
-        line-height: 1;
-        margin-top: -10px;
-        margin-right: -8px;
-        font-size: 9pt;
-        font-family: 'Segoe Script'
-    }
+.cart-count{
+    top: 0;
+    right:0;
+    padding: 2px 6px;
+    line-height: 1;
+    margin-top: -10px;
+    margin-right: -8px;
+    font-size: 9pt;
+    font-family: 'Segoe Script'
+}
 
-    /*
-    .dropdown .btn{
-        height:49px;
-    }*/
+/*
+.dropdown .btn{
+    height:49px;
+}*/
