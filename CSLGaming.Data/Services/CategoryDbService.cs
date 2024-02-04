@@ -34,5 +34,12 @@ namespace CSLGaming.Data.Services
             return entity;
         }
 
+        public override Task<bool> DeleteAsync<TEntity>(int id)
+        {
+            // Ifall vi tar bort entiteten så vill vi väl ta bort koplingarna till entiteten
+
+            return base.DeleteAsync<TEntity>(id);
+        }
+
     }
 }

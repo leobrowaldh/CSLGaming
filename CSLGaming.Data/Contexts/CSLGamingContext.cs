@@ -35,9 +35,11 @@ namespace CSLGaming.Data
             builder.Entity<Genere>()          
                 .HasMany(g => g.Products)      
                 .WithMany(p => p.Generes)      
-                .UsingEntity<GenereProduct>(); 
+                .UsingEntity<GenereProduct>();
+            // .OnDelete(DeleteBehavior.Cascade);
+            // Fråga om vi behöver en cascading delete för att automatiskt ta bprt kopplingstabbeller
 
-                                               
+
             builder.Entity<Category>()
                 .HasMany(c => c.Products)
                 .WithMany(p => p.Categories)

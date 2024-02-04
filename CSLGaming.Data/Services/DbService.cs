@@ -46,7 +46,7 @@ namespace CSLGaming.Data
 
         public async Task<bool> SaveChangesAsync() => await _db.SaveChangesAsync() >= 0;
 
-        public async Task<bool> DeleteAsync<TEntity>(int id)
+        public virtual async Task<bool> DeleteAsync<TEntity>(int id)
         where TEntity : class, IEntity
         {
             try
