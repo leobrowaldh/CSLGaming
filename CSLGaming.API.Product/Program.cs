@@ -23,7 +23,7 @@ builder.Services.AddCors(policy =>
     );
 });
 
-
+RegisterServices();
 
 var app = builder.Build();
 
@@ -36,18 +36,20 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+RegisterEndpoints();
+
 // Configure CORRS
 app.UseCors("CorsAllAccessPolicy");
 
 app.Run();
 
-void RegisterServices(IServiceCollection services)
+void RegisterServices()
 {
     ConfigureAutoMapper(builder.Services);
-    services.AddScoped<IDbService, ProductDbService>();
+    builder.Services.AddScoped<IDbService, ProductDbService>();
 }
 
-void RegisterEndpoints(WebApplication app)
+void RegisterEndpoints()
 {
     app.AddEndpoint<Product, ProductPostDTO, ProductPutDTO, ProductGetDTO>();
     app.MapGet($"/api/productsbycategory/" + "{categoryId}", async (IDbService db, int categoryId) =>
