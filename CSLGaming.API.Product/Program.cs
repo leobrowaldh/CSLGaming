@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore.Internal;
 using System.Drawing;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,6 +22,8 @@ builder.Services.AddCors(policy =>
            .AllowAnyMethod()
     );
 });
+
+
 
 var app = builder.Build();
 
