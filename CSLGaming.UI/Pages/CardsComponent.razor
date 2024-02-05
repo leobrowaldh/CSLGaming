@@ -1,0 +1,18 @@
+﻿
+<div class="card mx-3" style="width: 18rem;">
+    <img src="@Card?.Image" class="" alt="...">
+    <div class="card-body">
+        <p class="card-text">
+        <p class="price-tag text-info-emphasis fs-3">
+                @Card?.Price
+            </p>
+            <p class="Title">
+                @Card?.Title
+            </p>
+        </p>
+    </div>
+</div>
+
+@code {
+    [Parameter] public ProductCard? Card { get; set; }
+}
