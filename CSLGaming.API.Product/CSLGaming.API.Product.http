@@ -1,0 +1,6 @@
+@CSLGaming.API.Product_HostAddress = http://localhost:5296
+
+GET {{CSLGaming.API.Product_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

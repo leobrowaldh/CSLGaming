@@ -60,7 +60,20 @@ header div img, .dropdown .btn, header button{
     font-family: 'Segoe Script'
 }
 
+.carousel-item {
+    position: relative; /* Ensure relative positioning */
+}
+.carousel-text {
+    position: absolute;
+    top: 90%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /*-webkit-text-stroke: 1px #000000 !important;*/
+    text-align: center;
+}
+
 /*
 .dropdown .btn{
     height:49px;
 }*/
+
