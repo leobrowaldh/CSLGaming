@@ -9,8 +9,8 @@ public class Product : IEntity
     public double Rating { get; set; }
     public int ReleaseYear { get; set; }
     public string? PictureUrl { get; set; }
-    public int AgeRestrictionId { get; set; }
-    public AgeRestriction? AgeRestriction { get; set; }
+    public int? AgeRestrictionId { get; set; } // Denna är inte nullable så crashar
+    public AgeRestriction? AgeRestriction { get; set; } 
     public List<Category>? Categories { get; set; }
     public List<Genere>? Generes { get; set; }
     
