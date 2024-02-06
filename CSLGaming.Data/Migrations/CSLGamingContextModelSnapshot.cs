@@ -159,9 +159,6 @@ namespace CSLGaming.Data.Migrations
                     b.Property<int?>("AgeRestrictionId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("AgeRestrictionId1")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -181,8 +178,6 @@ namespace CSLGaming.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AgeRestrictionId");
-
-                    b.HasIndex("AgeRestrictionId1");
 
                     b.ToTable("Product");
                 });
@@ -235,13 +230,8 @@ namespace CSLGaming.Data.Migrations
             modelBuilder.Entity("CSLGaming.Data.Product", b =>
                 {
                     b.HasOne("CSLGaming.Data.AgeRestriction", "AgeRestriction")
-                        .WithMany()
-                        .HasForeignKey("AgeRestrictionId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("CSLGaming.Data.AgeRestriction", null)
                         .WithMany("Products")
-                        .HasForeignKey("AgeRestrictionId1");
+                        .HasForeignKey("AgeRestrictionId");
 
                     b.Navigation("AgeRestriction");
                 });

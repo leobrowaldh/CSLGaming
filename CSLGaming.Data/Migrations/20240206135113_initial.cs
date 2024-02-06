@@ -78,8 +78,7 @@ namespace CSLGaming.Data.Migrations
                     Rating = table.Column<double>(type: "float", nullable: false),
                     ReleaseYear = table.Column<int>(type: "int", nullable: false),
                     PictureUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AgeRestrictionId = table.Column<int>(type: "int", nullable: true),
-                    AgeRestrictionId1 = table.Column<int>(type: "int", nullable: true)
+                    AgeRestrictionId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -87,12 +86,6 @@ namespace CSLGaming.Data.Migrations
                     table.ForeignKey(
                         name: "FK_Product_AgeRestriction_AgeRestrictionId",
                         column: x => x.AgeRestrictionId,
-                        principalTable: "AgeRestriction",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Product_AgeRestriction_AgeRestrictionId1",
-                        column: x => x.AgeRestrictionId1,
                         principalTable: "AgeRestriction",
                         principalColumn: "Id");
                 });
@@ -188,11 +181,6 @@ namespace CSLGaming.Data.Migrations
                 name: "IX_Product_AgeRestrictionId",
                 table: "Product",
                 column: "AgeRestrictionId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Product_AgeRestrictionId1",
-                table: "Product",
-                column: "AgeRestrictionId1");
         }
 
         /// <inheritdoc />
