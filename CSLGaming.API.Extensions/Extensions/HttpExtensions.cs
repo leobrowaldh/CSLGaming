@@ -1,4 +1,6 @@
-﻿namespace CSLGaming.API.Extensions
+﻿using Microsoft.AspNetCore.Mvc;
+
+namespace CSLGaming.API.Extensions
 {
     public static class HttpExtensions
     {
@@ -11,6 +13,47 @@
             app.MapPost($"/api/{node}s", HttpPostAsync<TEntity, TPostDto>);
             app.MapPut($"/api/{node}s/" + "{id}", HttpPutAsync<TEntity, TPutDto>);
             app.MapDelete($"/api/{node}s/" + "{id}", HttpDeleteAsync<TEntity>);
+        }
+        
+       public static void AddEndpoint<TEntity, TPostDto, TDeleteDto>(this WebApplication app)
+        where TEntity : class where TPostDto : class where TDeleteDto : class
+        {
+            var node = typeof(TEntity).Name.ToLower();
+            app.MapPost($"/api/{node}s", HttpPostReferenceAsync<TEntity, TPostDto>);
+
+            app.MapDelete($"/api/{node}s", async (IDbService db, [FromBody] TDeleteDto dto) =>
+            {
+                try
+                {
+                    if (!db.Delete<TEntity, TDeleteDto>(dto)) return Results.NotFound();
+
+                    if (await db.SaveChangesAsync()) return Results.NoContent();
+                }
+                catch
+                {
+                }
+
+                return Results.BadRequest($"Couldn't delete the {typeof(TEntity).Name} entity.");
+            });
+        }
+
+        public static async Task<IResult> HttpPostReferenceAsync<TEntity, TPostDto>(this IDbService db, TPostDto dto)
+        where TEntity : class where TPostDto : class
+        {
+            try
+            {
+                var entity = await db.AddAsync<TEntity, TPostDto>(dto);
+                if (await db.SaveChangesAsync())
+                {
+                    var node = typeof(TEntity).Name.ToLower();
+                    return Results.Created($"/{node}s/", entity);
+                }
+            }
+            catch
+            {
+            }
+
+            return Results.BadRequest($"Couldn't add the {typeof(TEntity).Name} entity.");
         }
 
         public static async Task<IResult> HttpGetAsync<TEntity, TDto>(this IDbService db)

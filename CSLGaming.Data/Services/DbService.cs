@@ -12,7 +12,7 @@ namespace CSLGaming.Data
         public DbService(CSLGamingContext db, IMapper mapper)
         {
             _db = db;
-            this._mapper = mapper;
+            _mapper = mapper;
         }
 
         public virtual async Task<TEntity> AddAsync<TEntity, TDto>(TDto dto) where TEntity : class where TDto : class
@@ -42,6 +42,7 @@ namespace CSLGaming.Data
             where TEntity : class
             where TDto : class
         {
+            
             var entities = await _db.Set<TEntity>().ToListAsync();
             return _mapper.Map<List<TDto>>(entities);
         }
@@ -80,6 +81,7 @@ namespace CSLGaming.Data
 
         public virtual async Task<TDto> SingleAsync<TEntity, TDto>(int id) where TEntity : class, IEntity where TDto : class
         {
+            
             var entity = await _db.Set<TEntity>().SingleOrDefaultAsync(e => e.Id == id);
             return _mapper.Map<TDto>(entity);
         }

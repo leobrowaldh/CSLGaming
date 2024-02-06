@@ -52,6 +52,12 @@ void RegisterServices()
 void RegisterEndpoints()
 {
     app.AddEndpoint<Product, ProductPostDTO, ProductPutDTO, ProductGetDTO>();
+    app.AddEndpoint<Genere, GenerePostDTO, GenerePutDTO, GenereGetDTO>();
+    app.AddEndpoint<AgeRestriction, AgeRestrictionPostDTO, AgeRestrictionPutDTO, AgeRestrictionGetDTO>();
+    app.AddEndpoint<CategoryProduct, ProductCategoryPostDTO, ProductCategoryDeleteDTO>();
+    app.AddEndpoint<GenereProduct, ProductGenerePostDTO, ProductGenereDeleteDTO>();
+    
+    
     app.MapGet($"/api/productsbycategory/" + "{categoryId}", async (IDbService db, int categoryId) =>
     {
         try
@@ -84,7 +90,11 @@ void ConfigureAutoMapper(IServiceCollection services)
         cfg.CreateMap<CategoryProduct, ProductCategoryDeleteDTO>().ReverseMap();
         cfg.CreateMap<GenereProduct, ProductGenerePostDTO>().ReverseMap();
         cfg.CreateMap<GenereProduct, ProductGenereDeleteDTO>().ReverseMap();
-        
+        cfg.CreateMap<Category, CategoryPostDTO>().ReverseMap();
+        cfg.CreateMap<Category, CategoryPutDTO>().ReverseMap();
+        cfg.CreateMap<Category, CategoryGetDTO>().ReverseMap();
+        cfg.CreateMap<Category, CategorySmallGetDTO>().ReverseMap();
+
     });
     var mapper = config.CreateMapper();
     services.AddSingleton(mapper);
