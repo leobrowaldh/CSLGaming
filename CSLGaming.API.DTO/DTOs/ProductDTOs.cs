@@ -17,15 +17,15 @@
     public class ProductGetDTO : ProductPutDTO
     {
         // public List<FilterGetDTO>? Filters { get; set; } - Kommer användas för att kunna få med allt, beroende på filter
-        
+        public AgeRestrictionGetDTO? AgeRestriction { get; set; }
+        public List<CategoryGetDTO>? Categories { get; set; }
+        public List<GenereGetDTO>? Generes { get; set; }
 
     }
 
     public class ProductSmallGetDTO : ProductPutDTO 
     {
-        public AgeRestrictionGetDTO? AgeRestriction { get; set; }
-        public List<CategoryGetDTO>? Categories { get; set; }
-        public List<GenereGetDTO>? Generes { get; set; }
+        
     }
 
 }

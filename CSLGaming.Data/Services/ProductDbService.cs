@@ -22,5 +22,13 @@ namespace CSLGaming.Data.Services
             var products = await GetAsync<Product>(p => productIds.Contains(p.Id)).ToListAsync();
             return MapList<Product, ProductGetDTO>(products);
         }
+
+        public override Task<ProductGetDTO> SingleAsync<TEntity, ProductGetDTO>(int id)
+        {
+            IncludeNavigationsFor<AgeRestriction>();
+            IncludeNavigationsFor<Genere>();
+            IncludeNavigationsFor<Category>();
+            return base.SingleAsync<TEntity, ProductGetDTO>(id);
+        }
     }
 }
