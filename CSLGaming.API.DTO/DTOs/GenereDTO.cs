@@ -13,6 +13,7 @@ public class GenerePutDTO : GenerePostDTO
 public class GenereGetDTO : GenerePutDTO
 {
     //public List<FilterGetDTO>? Filters { get; set; }
+    public List<ProductGetDTO>? Products { get; set; }
 
 }
 public class GenereSmallGetDTO : GenerePutDTO

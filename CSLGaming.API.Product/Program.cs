@@ -75,7 +75,8 @@ void ConfigureAutoMapper(IServiceCollection services)
         cfg.CreateMap<Product, ProductGetDTO>().ReverseMap();
         cfg.CreateMap<Genere, GenerePostDTO>().ReverseMap();
         cfg.CreateMap<Genere, GenerePutDTO>().ReverseMap();
-        cfg.CreateMap<Genere, GenereGetDTO>().ReverseMap(); 
+        cfg.CreateMap<Genere, GenereGetDTO>().ReverseMap();
+        cfg.CreateMap<Genere, GenereSmallGetDTO>().ReverseMap();
         cfg.CreateMap<AgeRestriction, AgeRestrictionPostDTO>().ReverseMap();
         cfg.CreateMap<AgeRestriction, AgeRestrictionPutDTO>().ReverseMap();
         cfg.CreateMap<AgeRestriction, AgeRestrictionGetDTO>().ReverseMap();
