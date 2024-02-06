@@ -84,8 +84,7 @@ void ConfigureAutoMapper(IServiceCollection services)
         cfg.CreateMap<CategoryProduct, ProductCategoryDeleteDTO>().ReverseMap();
         cfg.CreateMap<GenereProduct, ProductGenerePostDTO>().ReverseMap();
         cfg.CreateMap<GenereProduct, ProductGenereDeleteDTO>().ReverseMap();
-        cfg.CreateMap<AgeRestrictionProduct, ProductAgeRestrictionPostDTO>().ReverseMap();
-        cfg.CreateMap<AgeRestrictionProduct, ProductAgeRestrictionDeleteDTO>().ReverseMap();
+        
     });
     var mapper = config.CreateMapper();
     services.AddSingleton(mapper);
