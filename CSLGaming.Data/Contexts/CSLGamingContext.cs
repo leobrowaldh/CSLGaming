@@ -35,27 +35,25 @@ namespace CSLGaming.Data
                 .HasMany(g => g.Products)      
                 .WithMany(p => p.Generes)      
                 .UsingEntity<GenereProduct>();
-            // .OnDelete(DeleteBehavior.Cascade);
-            // Fråga om vi behöver en cascading delete för att automatiskt ta bprt kopplingstabbeller
-
 
             builder.Entity<Category>()
                 .HasMany(c => c.Products)
                 .WithMany(p => p.Categories)
-            .UsingEntity<CategoryProduct>();
+                .UsingEntity<CategoryProduct>();
 
             builder.Entity<Category>()
                 .HasMany(c => c.Filters)
                 .WithMany(f => f.Categories)
-            .UsingEntity<CategoryFilter>();
+                .UsingEntity<CategoryFilter>();
 
+            #endregion
+
+            #region one to many relationships
 
             builder.Entity<Product>()
                .HasOne(p => p.AgeRestriction)
-               .WithMany()
-               .HasForeignKey(p => p.AgeRestrictionId)
-               .OnDelete(DeleteBehavior.Restrict);
-
+               .WithMany(a => a.Products)
+               .HasForeignKey(p => p.AgeRestrictionId);
 
             #endregion
 

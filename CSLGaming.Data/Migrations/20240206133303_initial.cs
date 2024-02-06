@@ -5,13 +5,13 @@
 namespace CSLGaming.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "AgeRestrictions",
+                name: "AgeRestriction",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -21,7 +21,7 @@ namespace CSLGaming.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AgeRestrictions", x => x.Id);
+                    table.PrimaryKey("PK_AgeRestriction", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -77,17 +77,24 @@ namespace CSLGaming.Data.Migrations
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Rating = table.Column<double>(type: "float", nullable: false),
                     ReleaseYear = table.Column<int>(type: "int", nullable: false),
-                    AgeRestrictionId = table.Column<int>(type: "int", nullable: false)
+                    PictureUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AgeRestrictionId = table.Column<int>(type: "int", nullable: true),
+                    AgeRestrictionId1 = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Product", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Product_AgeRestrictions_AgeRestrictionId",
+                        name: "FK_Product_AgeRestriction_AgeRestrictionId",
                         column: x => x.AgeRestrictionId,
-                        principalTable: "AgeRestrictions",
+                        principalTable: "AgeRestriction",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Product_AgeRestriction_AgeRestrictionId1",
+                        column: x => x.AgeRestrictionId1,
+                        principalTable: "AgeRestriction",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -181,6 +188,11 @@ namespace CSLGaming.Data.Migrations
                 name: "IX_Product_AgeRestrictionId",
                 table: "Product",
                 column: "AgeRestrictionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Product_AgeRestrictionId1",
+                table: "Product",
+                column: "AgeRestrictionId1");
         }
 
         /// <inheritdoc />
@@ -208,7 +220,7 @@ namespace CSLGaming.Data.Migrations
                 name: "Product");
 
             migrationBuilder.DropTable(
-                name: "AgeRestrictions");
+                name: "AgeRestriction");
         }
     }
 }
