@@ -37,12 +37,12 @@ namespace CSLGaming.API.Extensions
             });
         }
 
-        public static async Task<IResult> HttpPostReferenceAsync<TEntity, TPostDto>(this IDbService db, TPostDto dto)
-        where TEntity : class where TPostDto : class
+        public static async Task<IResult> HttpPostReferenceAsync<TEntity, TDto>(this IDbService db, TDto dto)
+        where TEntity : class where TDto : class
         {
             try
             {
-                var entity = await db.AddAsync<TEntity, TPostDto>(dto);
+                var entity = await db.AddAsync<TEntity, TDto>(dto);
                 if (await db.SaveChangesAsync())
                 {
                     var node = typeof(TEntity).Name.ToLower();

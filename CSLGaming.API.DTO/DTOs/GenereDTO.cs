@@ -18,5 +18,5 @@ public class GenereGetDTO : GenerePutDTO
 }
 public class GenereSmallGetDTO : GenerePutDTO
 {
-    public List<ProductGetDTO>? Products { get; set; }
+    //public List<ProductGetDTO>? Products { get; set; }
 }

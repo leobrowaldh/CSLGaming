@@ -4,6 +4,8 @@ namespace CSLGaming.Data.Services
 {
     public class ProductDbService(CSLGamingContext db, IMapper mapper) : DbService(db, mapper)
     {
+        private readonly CSLGamingContext _ctx;
+
         public override async Task<List<TDto>> GetAsync<TEntity, TDto>()
         {
 
@@ -28,6 +30,9 @@ namespace CSLGaming.Data.Services
             IncludeNavigationsFor<AgeRestriction>();
             IncludeNavigationsFor<Genere>();
             IncludeNavigationsFor<Category>();
+            
+            
+
             return base.SingleAsync<TEntity, ProductGetDTO>(id);
         }
     }

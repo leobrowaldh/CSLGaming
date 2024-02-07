@@ -108,7 +108,7 @@ namespace CSLGaming.Data
 
             if (navigationPropertyNames is not null)
                 foreach (var name in navigationPropertyNames)
-                    _db.Set<TEntity>().Include(name).Load();
+                    _db.Set<TEntity>().Include(name).Load(); // Vi förbereder peroperties med eager loading att de skall kunna läsas, men sedan i get fylls de förberedda entiteterna in
         }
     }
 }
