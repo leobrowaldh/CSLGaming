@@ -16,6 +16,6 @@ public enum enGenere
 }
 
 public enum enAgeRestriction
-{
+{ö
     eC, E, E10, T, M, Ao, RP
 }
