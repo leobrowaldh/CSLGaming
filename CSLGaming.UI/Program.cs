@@ -1,3 +1,4 @@
+using CSLGaming.Data.Shared;
 using CSLGaming.UI;
 using CSLGaming.UI.Services;
 using Microsoft.AspNetCore.Components.Web;
@@ -12,4 +13,21 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.
 builder.Services.AddSingleton<UIService>(); // Denna skapas sålänge programmet lever (är på)
 builder.Services.AddHttpClient<CategoryHttpClient>();
 
+ConfigureAutoMapper();
+
 await builder.Build().RunAsync();
+
+void ConfigureAutoMapper()
+{
+    var config = new MapperConfiguration(cfg =>
+    {
+        cfg.CreateMap<CategoryGetDTO, LinkOption>()
+            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.CategoryType.ToString()))
+            .ReverseMap();
+    });
+
+    var mapper = config.CreateMapper();
+    builder.Services.AddSingleton(mapper);
+}
+
+

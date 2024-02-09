@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CSLGaming.API.DTO\CSLGaming.API.DTO.csproj" />
+  </ItemGroup>
+
 </Project>
