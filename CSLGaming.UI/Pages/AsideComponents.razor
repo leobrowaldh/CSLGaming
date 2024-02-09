@@ -1,25 +1,42 @@
-﻿
+﻿@using CSLGaming.UI.Services
 
-<aside id="aside-menu" class="d-flex flex-column m-2 ms-o mt-0 p-2 pt-0 bg-body-tertiary vh-100" style="min-width:160px; max-width:200px;"> <!-- m står för margin-->
-    @foreach (var group in CaregoryLinkGroups)
+
+<aside  
+    id="aside-menu" 
+    class="d-flex flex-column m-2 ms-0 mt-0 p-2 pt-0 bg-body-secondary vh-100"
+    style="min-width:160px; max-width:200px;">
+    @foreach (var group in Service!.CategoryLinkGroups)
     {
-        <LinkMainComponent Linkgroup="group"/>
+        <LinkMainComponent LinkGroup="group" OnAsideCall="OnAsideCallBack"/>
     }
-
 </aside>
 
 @code{
-    List<LinkGroup> CaregoryLinkGroups { get; set; } = new()
+
+    [CascadingParameter(Name = "Service")] public UIService? Service { get; set; }
+
+    [Parameter] public EventCallback OnChange { get; set; } // Updaterar sidan
+
+    void OnAsideCallBack(int id)
+    {
+        if (OnChange.HasDelegate)
+        {
+            OnChange.InvokeAsync();
+        }
+    }
+
+   /* List<LinkGroup> CategoryLinkGroups { get; set; } = new()
+
     {
         new LinkGroup()
         {
             Name = "Category",
-            Links= new(){
+            LinkOptions= new(){
                 new LinkOption { Id = 1, Name = "Women", IsSelected = true },
                 new LinkOption { Id = 2, Name = "Men", IsSelected = false },
                 new LinkOption { Id = 3, Name = "Children", IsSelected = false }
             }
         }
-     };
-};
+    };*/
+}
 
