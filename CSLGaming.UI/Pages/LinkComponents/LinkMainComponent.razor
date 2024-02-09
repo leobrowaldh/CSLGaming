@@ -1,0 +1,13 @@
+﻿<article>
+    <div class="bg-primary">@Linkgroup?.Name</div>
+        <div>
+        @foreach (var link in Linkgroup!.Links)
+        {
+            <LinkComponent LinkOption="link"/>
+        }
+        </div>
+</article>
+
+@code {
+    [Parameter] public LinkGroup? Linkgroup { get; set; }
+}

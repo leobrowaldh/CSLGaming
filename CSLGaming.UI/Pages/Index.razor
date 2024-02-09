@@ -1,5 +1,18 @@
-﻿@page "/"
+﻿@using CSLGaming.UI.Pages;
 
-<NavbarComponent />
-<CarouselComponent />
-<CardListComponent />
+@page "/"
+<!--
+    <NavbarComponent />
+    <CarouselComponent />
+    <CardListComponent />
+
+-->
+
+
+<!--Anledningen till att vi använder flex-column på hela diven med de två componenterna och innuti aide componenten, 
+    är för att flytta de två compunenterna till en column, och sedan i asiden för att flytta innehållet i asidekomponenten->
+
+<div id="viewport" class="d-flex vh-100"> 
+    <AsideComponents/>
+    <ProductComponent/>
+</div>
