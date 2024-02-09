@@ -1,13 +1,20 @@
 ﻿<article>
-    <div class="bg-primary">@Linkgroup?.Name</div>
-        <div>
-        @foreach (var link in Linkgroup!.Links)
+    <div class="bg-primary text-white p-2"><strong>@Linkgroup?.Name</strong></div>
+        <div d-flex flex-column>
+        @foreach (var link in Linkgroup.LinkOptions)
         {
-            <LinkComponent LinkOption="link"/>
+            <LinkComponent LinkOption="link" OnLinkClick="OnLinkPress"/>
         }
         </div>
 </article>
 
 @code {
     [Parameter] public LinkGroup? Linkgroup { get; set; }
+    [Parameter] public EventCallback<int> OnAsideCall { get; set; }
+
+    void OnLinkPress(int id)
+    {
+        if (OnAsideCall.HasDelegate) OnAsideCall.InvokeAsync(id);
+        
+    }
 }

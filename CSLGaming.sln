@@ -19,6 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSLGaming.API.Product", "CS
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSLGaming.UI.Models", "CSLGaming.UI.Models\CSLGaming.UI.Models.csproj", "{3A29F276-0378-4216-AD26-BC0093D96261}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSLGaming.UI.Http", "CSLGaming.UI.Http\CSLGaming.UI.Http.csproj", "{2005148F-AC0F-4727-AA12-13851315E532}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{3A29F276-0378-4216-AD26-BC0093D96261}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A29F276-0378-4216-AD26-BC0093D96261}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A29F276-0378-4216-AD26-BC0093D96261}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2005148F-AC0F-4727-AA12-13851315E532}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2005148F-AC0F-4727-AA12-13851315E532}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2005148F-AC0F-4727-AA12-13851315E532}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2005148F-AC0F-4727-AA12-13851315E532}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
