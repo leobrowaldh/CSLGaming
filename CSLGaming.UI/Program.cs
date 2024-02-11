@@ -23,7 +23,7 @@ void ConfigureAutoMapper()
     var config = new MapperConfiguration(cfg =>
     {
         cfg.CreateMap<CategoryGetDTO, LinkOption>()
-            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.CategoryType.ToString()))
+            .ForMember(dest => dest.CategoryType, opt => opt.MapFrom(src => src.CategoryType.ToString()))
             .ReverseMap();
     });
 
