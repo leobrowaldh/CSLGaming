@@ -1,6 +1,6 @@
 ﻿<article>
     <div class="bg-primary text-white p-2"><strong>@Linkgroup?.Name</strong></div>
-        <div d-flex flex-column>
+        <div class="d-flex flex-column">
         @foreach (var link in Linkgroup!.LinkOptions)
         {
             <LinkComponent LinkOption="link" OnLinkClick="OnLinkPress"/>
