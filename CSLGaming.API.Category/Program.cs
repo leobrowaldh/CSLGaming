@@ -39,7 +39,7 @@ app.UseHttpsRedirection();
 
 RegisterEndpoints();
 
-
+app.UseCors("CorsAllAccessPolicy");
 
 app.Run();
 

@@ -6,7 +6,7 @@
     {
         public int CurrentCategoryId { get; set; }
 
-        List<CategoryGetDTO> Categories { get; set; } = [];
+        public List<CategoryGetDTO> Categories { get; set; } = [];
 
         public List<ProductGetDTO> Products { get; set; } = [];
 
