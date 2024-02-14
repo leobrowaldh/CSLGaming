@@ -7,11 +7,12 @@ namespace CSLGaming.Data
 {
     public class CSLGamingContext(DbContextOptions<CSLGamingContext> builder) : DbContext(builder) 
     {
-        public DbSet<CategoryProduct> Products => Set<CategoryProduct>();
+        public DbSet<Product> Products => Set<Product>();
         public DbSet<Filter> Filters => Set<Filter>();                        
         public DbSet<Genere> Generes => Set<Genere>();
-        public DbSet<GenereProduct> GenereProducts => Set<GenereProduct>();
         public DbSet<Category> Categories => Set<Category>();
+        public DbSet<AgeRestriction> AgeRestrictions => Set<AgeRestriction>();
+        public DbSet<GenereProduct> GenereProducts => Set<GenereProduct>();
         public DbSet<CategoryProduct> CategoryProducts => Set<CategoryProduct>();
         public DbSet<CategoryFilter> CategoryFilters => Set<CategoryFilter>();
 
