@@ -4,7 +4,7 @@ namespace CSLGaming.API.DTO;
 public class CategoryPostDTO
 {
     public enCategory CategoryType { get; set; }
-    public enOptionType OptionType { get; set; }
+    //public enOptionType OptionType { get; set; }
 }
 public class CategoryPutDTO : CategoryPostDTO
 {

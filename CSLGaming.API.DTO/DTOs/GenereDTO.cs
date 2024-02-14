@@ -4,7 +4,7 @@ namespace CSLGaming.API.DTO;
 public class GenerePostDTO
 {
     public enGenere GenereType { get; set; }
-    public enOptionType OptionType { get; set; }
+    //public enOptionType OptionType { get; set; }
 }
 public class GenerePutDTO : GenerePostDTO
 {

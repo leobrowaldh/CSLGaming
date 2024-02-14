@@ -4,7 +4,7 @@ namespace CSLGaming.API.DTO;
 public class AgeRestrictionPostDTO
 {
     public enAgeRestriction Age { get; set; }
-    public enOptionType OptionType { get; set; }
+    //public enOptionType OptionType { get; set; }
 }
 public class AgeRestrictionPutDTO : AgeRestrictionPostDTO
 {
