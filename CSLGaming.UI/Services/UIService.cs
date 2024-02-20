@@ -2,7 +2,7 @@
 {
     
 
-    public class UIService(CategoryHttpClient categoryHttp, ProductHttpClient productHttp, IMapper mapper)
+    public class UIService(CategoryHttpClient categoryHttpClient, ProductHttpClient productHttpClient, IMapper mapper)
     {
         public int CurrentCategoryId { get; set; }
 
@@ -12,18 +12,12 @@
 
         public List<LinkGroup> CategoryLinkGroups { get; private set; } =
         [
-            new LinkGroup { Name = "Categories"
-           /* LinkOptions = new(){
-                new LinkOption { Id = 1, Name = "Women", IsSelected = true },
-                new LinkOption { Id = 2, Name = "Men", IsSelected = false },
-                new LinkOption { Id = 3, Name = "Children", IsSelected = false }
-            }*/
-            }
+            new LinkGroup { Name = "Categories" }
         ];
 
         public async Task GetLinkGroup()
         {
-            Categories = await categoryHttp.GetCategoriesAsync();
+            Categories = await categoryHttpClient.GetCategoriesAsync();
             CategoryLinkGroups[0].LinkOptions = mapper.Map<List<LinkOption>>(Categories);
             var linkOption = CategoryLinkGroups[0].LinkOptions.FirstOrDefault();
             linkOption!.IsSelected = true;
@@ -38,6 +32,6 @@
         }
 
         public async Task GetProductsAsync() =>
-       Products = await productHttp.GetProductsAsync(CurrentCategoryId);
+       Products = await productHttpClient.GetProductsAsync(CurrentCategoryId);
     }
 }
