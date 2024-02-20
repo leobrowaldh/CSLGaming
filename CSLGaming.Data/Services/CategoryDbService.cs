@@ -22,11 +22,7 @@ namespace CSLGaming.Data.Services
             if (entity is Category categoryEntity)
             {
                 
-                if (!Enum.IsDefined(typeof(enCategory), categoryEntity.CategoryType) ||
-                    !Enum.IsDefined(typeof(enOptionType), categoryEntity.OptionType))
-                {
-                    throw new ArgumentException("Invalid enum values in CategoryType or OptionType");
-                }
+                
  
                 await db.Set<TEntity>().AddAsync(entity);
             }

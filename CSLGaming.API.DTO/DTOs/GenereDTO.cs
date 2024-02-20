@@ -3,7 +3,7 @@ namespace CSLGaming.API.DTO;
 
 public class GenerePostDTO
 {
-    public enGenere GenereType { get; set; }
+    public string GenereType { get; set; } = string.Empty;
     //public enOptionType OptionType { get; set; }
 }
 public class GenerePutDTO : GenerePostDTO
