@@ -1,3 +1,4 @@
+using AutoMapper;
 using CSLGaming.Data.Shared;
 using CSLGaming.UI;
 using CSLGaming.UI.Services;

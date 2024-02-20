@@ -13,13 +13,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSLGaming.API.Extensions", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSLGaming.API.DTO", "CSLGaming.API.DTO\CSLGaming.API.DTO.csproj", "{411FC4EB-3D13-45D8-8B69-9208186E0A34}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSLGaming.UI", "CSLGaming.UI\CSLGaming.UI.csproj", "{CE586008-31CB-4E42-8295-8B909E2D1FA0}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSLGaming.API.Product", "CSLGaming.API.Product\CSLGaming.API.Product.csproj", "{6703ABA9-21CF-4F5E-8F7F-C6F5F12B589D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSLGaming.UI.Models", "CSLGaming.UI.Models\CSLGaming.UI.Models.csproj", "{3A29F276-0378-4216-AD26-BC0093D96261}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSLGaming.UI.Http", "CSLGaming.UI.Http\CSLGaming.UI.Http.csproj", "{2005148F-AC0F-4727-AA12-13851315E532}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSLGaming.UI.Http", "CSLGaming.UI.Http\CSLGaming.UI.Http.csproj", "{2005148F-AC0F-4727-AA12-13851315E532}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSLGaming.UI", "CSLGaming.UI\CSLGaming.UI.csproj", "{A6879933-10FE-4EE2-96C5-8372FADCCA4C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,10 +47,6 @@ Global
 		{411FC4EB-3D13-45D8-8B69-9208186E0A34}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{411FC4EB-3D13-45D8-8B69-9208186E0A34}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{411FC4EB-3D13-45D8-8B69-9208186E0A34}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CE586008-31CB-4E42-8295-8B909E2D1FA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CE586008-31CB-4E42-8295-8B909E2D1FA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CE586008-31CB-4E42-8295-8B909E2D1FA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CE586008-31CB-4E42-8295-8B909E2D1FA0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6703ABA9-21CF-4F5E-8F7F-C6F5F12B589D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6703ABA9-21CF-4F5E-8F7F-C6F5F12B589D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6703ABA9-21CF-4F5E-8F7F-C6F5F12B589D}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -63,6 +59,10 @@ Global
 		{2005148F-AC0F-4727-AA12-13851315E532}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2005148F-AC0F-4727-AA12-13851315E532}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2005148F-AC0F-4727-AA12-13851315E532}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6879933-10FE-4EE2-96C5-8372FADCCA4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6879933-10FE-4EE2-96C5-8372FADCCA4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6879933-10FE-4EE2-96C5-8372FADCCA4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6879933-10FE-4EE2-96C5-8372FADCCA4C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
