@@ -7,6 +7,7 @@
         public double Rating { get; set; }
         public int ReleaseYear { get; set; }
         public string? PictureUrl { get; set; }
+        public string Description { get; set; } = string.Empty;
     }
 
     public class ProductPutDTO : ProductPostDTO

@@ -1,10 +1,63 @@
-﻿<section>
+﻿@using CSLGaming.UI.Services
+@inject UIService service;
 
-    <h3>ProductComponent</h3>
+<section>
+    @foreach (var product in service.Products)
+    {
+        <div class="card mb-3" style="max-width: 540px;">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="@product.PictureUrl" class="img-fluid rounded-start" alt="@product.Name">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body1">
+                        <h5 class="card-title">@product.Name</h5>
+                        <p class="card-text">@product.Description</p>
+                        <h6 class="card-price">@product.Price Kr</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <div class="card-body1">
+                        <div class="card-generes">
+                            @foreach (var genre in product.Generes!)
+                            {
+                                <span class="badge text-bg-secondary mr-10" title="@genre.GenereType">@genre.GenereType</span>
+                                // <span style="margin-right: 2px;" title="@genre.GenereType">@genre.GenereType</span> detta funkar
+                            }
+                        </div>
+                        <div>
+                            <span class="badge text-bg-success">Age rating: @product.AgeRestriction!.Age</span>
+                        </div>
+                        <p class="card-release" style="font-weight: bold;">Release Year: @product.ReleaseYear</p>
+                        <div class="d-flex align-items-center">
+                            <div class="star-rating">                                
+                                <span class="bi bi-star-fill text-warning"></span>
+                            </div>
+                            <span class="ml-2">@product.Rating</span> 
+                            <button class="btn btn-sm btn-success" @onclick="() => AddToCart(product)"><i class="bi-cart"></i></button>
+
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    
 
 </section>
 
 
 @code {
+
+    [Parameter] public EventCallback OnChange { get; set; }
+
+    async Task AddToCart(ProductGetDTO product)
+    {
+        
+    }
+
 
 }
