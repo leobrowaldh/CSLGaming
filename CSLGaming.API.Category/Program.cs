@@ -25,8 +25,22 @@ builder.Services.AddCors(policy =>
 
 RegisterServices();
 
-var app = builder.Build(); // Ovanför här registrerar vi Contexten vi vill använda! (Ta bort sen)
-// Pipeline är kopplingar som skickar data, fram och tillbaka, Det är viktigt med ordningarna, så att dina anrop körs vid rätt punkt.
+var app = builder.Build();
+
+//Database Seeding:
+if (args.Length == 1 && args[0].ToLower() == "seeddata")
+    SeedData(app);
+
+void SeedData(IHost app)
+{
+    var scopedFactory = app.Services.GetService<IServiceScopeFactory>();
+
+    using (var scope = scopedFactory.CreateScope())
+    {
+        var service = scope.ServiceProvider.GetService<Seed>();
+        service.SeedDataContext();
+    }
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -54,6 +68,7 @@ void RegisterServices()
 {
     ConfigureAutoMapper();
     builder.Services.AddScoped<IDbService, CategoryDbService>();
+    builder.Services.AddTransient<Seed>();
 }
 
 void ConfigureAutoMapper()
