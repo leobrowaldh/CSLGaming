@@ -5,7 +5,7 @@ namespace CSLGaming.Data.Seeder;
 public class Seed
 {
     public List<Category> categories = new List<Category>() { new Category() { CategoryType = "Windows" }, new Category() { CategoryType = "Mac" }, 
-        new Category() { CategoryType = "PS" }, new Category() { CategoryType = "XBox" }, new Category() { CategoryType = "WII" } };
+        new Category() { CategoryType = "PS" }, new Category() { CategoryType = "Xbox" }, new Category() { CategoryType = "WII" } };
 
     public List<string> productNames = new List<string>()
     {
@@ -17,7 +17,7 @@ public class Seed
 
     public List<Genere> generes = new List<Genere>() { new Genere() { GenereType = "Accion" }, new Genere() { GenereType = "Adventure" }, 
         new Genere() { GenereType = "RPG" }, new Genere() { GenereType = "RTS" }, new Genere() { GenereType = "Family" }, 
-        new Genere() { GenereType = "Shooter" }, new Genere() { GenereType = "Survival" }, new Genere() { GenereType = "Accion" } };
+        new Genere() { GenereType = "Shooter" }, new Genere() { GenereType = "Survival" }, new Genere() { GenereType = "Action" } };
 
 
     private readonly CSLGamingContext _context;
@@ -66,7 +66,7 @@ public class Seed
                             Price = rnd.Next(100, 600),
                             Rating = rnd.Next(0, 6),
                             ReleaseYear = rnd.Next(1985, 2024),
-                            Description = LoremIpsumGenerator.LoremIpsum(20, 200, 1, 10, 1),
+                            Description = LoremIpsumGenerator.LoremIpsum(20, 200, 1, 10, 2),
                             PictureUrl = "images/Games/" + $"{i}.png",
                             AgeRestriction = ageRes,
                             Categories = categoriesToAdd,

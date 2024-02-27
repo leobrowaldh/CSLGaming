@@ -2,3 +2,4 @@
 global using AutoMapper;
 global using CSLGaming.API.DTO;
 global using CSLGaming.UI.Models.Link;
+global using CSLGaming.API.Extensions;
