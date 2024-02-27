@@ -47,7 +47,7 @@ public class Seed
                 List<Genere> generes = new List<Genere>();
                 for (int k = 0; k < nrGeneres; k++)
                 {
-                    generes.Add(new Genere() { GenereType = shuffledGeneres[j] });
+                    generes.Add(new Genere() { GenereType = shuffledGeneres[k] });
                 }
 
                 var product = new Product()

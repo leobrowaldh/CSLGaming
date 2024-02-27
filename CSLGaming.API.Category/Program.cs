@@ -8,10 +8,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // SQL Server Service Registration
-builder.Services.AddDbContext<CSLGamingContext>( // Lägger till Contexten!
+builder.Services.AddDbContext<CSLGamingContext>( 
     options =>
         options.UseSqlServer(
-            builder.Configuration.GetConnectionString("CSLGamingConnection"))); // Läser ifrån namnet vi har valt i app-settings. De matchar inte blir förvirrad (Ta bort sen*)
+            builder.Configuration.GetConnectionString("CSLGamingConnection"))); 
 
 //CORS Access policy
 builder.Services.AddCors(policy =>
