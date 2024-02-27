@@ -67,7 +67,7 @@ public class Seed
                             Rating = rnd.Next(0, 6),
                             ReleaseYear = rnd.Next(1985, 2024),
                             Description = LoremIpsumGenerator.LoremIpsum(20, 200, 1, 10, 1),
-                            PictureUrl = "images/Games" + $"{i}.png",
+                            PictureUrl = "images/Games/" + $"{i}.png",
                             AgeRestriction = ageRes,
                             Categories = categoriesToAdd,
                             Generes = generesToAdd
