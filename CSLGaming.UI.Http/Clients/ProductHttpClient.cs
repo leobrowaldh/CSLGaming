@@ -22,7 +22,7 @@ public class ProductHttpClient
         try
         {
             // Use the relative path, not the base address here
-            string relativePath = $"productsbycategory/{categoryId}";
+            string relativePath = $"{_httpClient.BaseAddress}bycategory/{categoryId}";
             using HttpResponseMessage response = await _httpClient.GetAsync(relativePath);
             response.EnsureSuccessStatusCode();
 

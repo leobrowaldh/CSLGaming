@@ -1,4 +1,5 @@
 using CSLGaming.Data.Services;
+using CSLGaming.Data.Seeder;
 
 var builder = WebApplication.CreateBuilder(args);
 
