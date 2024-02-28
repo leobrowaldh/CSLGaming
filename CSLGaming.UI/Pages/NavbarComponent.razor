@@ -16,11 +16,12 @@
             <ul class="navbar-nav mb-2 mb-lg-0">
                 <li class="nav-item">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Category
+                        @CurrentChoice.ToString()
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><a class="dropdown-item" href="#" @onclick="() => UpdateChoice(Choice.Game)">Game</a></li>
+                        <li><a class="dropdown-item" href="#" @onclick="() => UpdateChoice(Choice.Genere)">Genere</a></li>
+                        <li><a class="dropdown-item" href="#" @onclick="() => UpdateChoice(Choice.Category)">Category</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="#">Something else here</a></li>
                     </ul>
@@ -53,7 +54,13 @@
 
 
 @code {
+    public enum Choice {Category, Game, Genere}
+    public Choice CurrentChoice { get; set; } = Choice.Category;
 
+    private void UpdateChoice(Choice choice)
+    {
+        CurrentChoice = choice;
+    }
 }
 
 
