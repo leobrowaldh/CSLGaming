@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSLGaming.UI.Models", "CSLG
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSLGaming.UI.Http", "CSLGaming.UI.Http\CSLGaming.UI.Http.csproj", "{2005148F-AC0F-4727-AA12-13851315E532}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSLGaming.UI", "CSLGaming.UI\CSLGaming.UI.csproj", "{A6879933-10FE-4EE2-96C5-8372FADCCA4C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSLGaming.UI", "CSLGaming.UI\CSLGaming.UI.csproj", "{A6879933-10FE-4EE2-96C5-8372FADCCA4C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
