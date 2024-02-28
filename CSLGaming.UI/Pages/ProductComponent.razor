@@ -4,56 +4,45 @@
 
 
 <section>
-    @foreach (var product in service!.Products)
-    {
-        <div class="card mb-3" style="max-width: 540px;">
-            <div class="row g-0">
-                <div class="col-md-4">
-                    <img src="@product.PictureUrl" class="img-fluid rounded-start" alt="@product.Name">
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body1">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
+        @foreach (var product in service!.Products)
+        {
+            <div class="col mb-4">
+                <div class="card h-100">
+                    <img src="@product.PictureUrl" class="card-img-top" alt="@product.Name">
+                    <div class="card-body">
                         <h5 class="card-title">@product.Name</h5>
                         @foreach (var paragraph in product.Description.Split(new[] { "</p>", "<p>" }, StringSplitOptions.RemoveEmptyEntries))
                         {
-                            <p>@paragraph.Truncate(50)</p>
+                            <p class="card-text">@paragraph.Truncate(50)</p>
                         }
-                        
                         <h6 class="card-price">@product.Price Kr</h6>
                     </div>
-                </div>
-            </div>
-            <div class="row g-0">
-                <div class="col-md-4">
-                    <div class="card-body1">
+                    <div class="card-footer">
                         <div class="card-generes">
                             @foreach (var genre in product.Generes!)
                             {
-                                <span class="badge text-bg-secondary mr-10" title="@genre.GenereType">@genre.GenereType</span>
-                                // <span style="margin-right: 2px;" title="@genre.GenereType">@genre.GenereType</span> detta funkar
+                                <span class="badge bg-secondary mr-1" title="@genre.GenereType">@genre.GenereType</span>
                             }
                         </div>
                         <div>
-                            <span class="badge text-bg-success">Age rating: @product.AgeRestriction!.Age</span>
+                            <span class="badge bg-success">Age rating: @product.AgeRestriction!.Age</span>
                         </div>
-                        <p class="card-release" style="font-weight: bold;">Release Year: @product.ReleaseYear</p>
+                        <p class="card-release font-weight-bold">Release Year: @product.ReleaseYear</p>
                         <div class="d-flex align-items-center">
-                            <div class="star-rating">                                
+                            <div class="star-rating">
                                 <span class="bi bi-star-fill text-warning"></span>
                             </div>
-                            <span class="ml-2">@product.Rating</span> 
-                            <button class="btn btn-sm btn-success" @onclick="() => AddToCart(product)"><i class="bi-cart"></i></button>
-
+                            <span class="ml-2">@product.Rating</span>
+                            <button class="btn btn-sm btn-success ml-auto" @onclick="() => AddToCart(product)"><i class="bi-cart"></i></button>
                         </div>
-                        
                     </div>
                 </div>
             </div>
-        </div>
-    }
-    
-
+        }
+    </div>
 </section>
+
 
 
 @code {
