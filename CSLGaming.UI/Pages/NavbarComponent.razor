@@ -1,4 +1,7 @@
-﻿<nav class="navbar navbar-expand-lg bg-body-tertiary">
+﻿@using CSLGaming.UI.Services
+@inject UIService Service;
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid d-flex justify-content-between align-items-center">
         <!-- Logo -->
         <a class="navbar-brand" href="#">
@@ -29,10 +32,10 @@
             </ul>
 
             <!-- Search Form -->
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+            <div class="d-flex">
+                <input @oninput="e => UpdateSearchText(e)" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="button" @onclick="() => ChoiceSearch(Service)">Search</button>
+            </div>
         </div>
 
         <!-- Login and Cart Buttons -->
@@ -54,12 +57,62 @@
 
 
 @code {
-    public enum Choice {Category, Game, Genere}
-    public Choice CurrentChoice { get; set; } = Choice.Category;
+    @code {
+        private string? searchText;
 
-    private void UpdateChoice(Choice choice)
-    {
-        CurrentChoice = choice;
+        public enum Choice { Category, Game, Genere }
+        public Choice CurrentChoice { get; set; } = Choice.Category;
+
+        [Parameter] public EventCallback OnChange { get; set; }
+
+        private void UpdateChoice(Choice choice)
+        {
+            CurrentChoice = choice;
+        }
+
+        private void UpdateSearchText(ChangeEventArgs e)
+        {
+            searchText = e.Value?.ToString();
+        }
+
+       
+
+        protected override async Task OnInitializedAsync()
+        {
+            if (Service is not null)
+            {
+                await Service.GetLinkGroup();
+                await OnChange.InvokeAsync();
+            }
+        }
+
+        private async void ChoiceSearch(UIService db)
+        {
+            if (CurrentChoice == Choice.Category && OnChange.HasDelegate && Service is not null)
+            {
+                await db.GetIdByName(searchText);
+                await db.GetLinkGroup();
+                await db.GetProductsAsync();
+                await OnChange.InvokeAsync();
+            }
+            else if (CurrentChoice == Choice.Game && OnChange.HasDelegate && Service is not null)
+            {
+                await db.GetProductsByNameAsync(searchText);
+                await OnChange.InvokeAsync();
+
+            }
+            else if (CurrentChoice == Choice.Genere && OnChange.HasDelegate && Service is not null)
+            {
+                await db.GetProductsByGenereAsync(searchText);
+                await OnChange.InvokeAsync();
+            }
+            else
+            {
+                return;
+            }
+
+            var TEST = searchText;
+        }
     }
 }
 

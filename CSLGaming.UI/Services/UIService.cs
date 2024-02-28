@@ -15,6 +15,28 @@
             new LinkGroup { Name = "Categories" }
         ];
 
+        public async Task GetIdByName(string categoryName)
+        {
+            if (Categories == null || Categories.Count == 0)
+            {
+               Categories = await categoryHttpClient.GetCategoriesAsync();
+            }
+
+            var category = Categories.FirstOrDefault(c => c.CategoryType.Equals(categoryName));
+
+            if (category != null)
+            {
+                CurrentCategoryId = category.Id;
+            }
+
+            else
+            {
+                return;
+            }
+
+            
+        }
+
         public async Task GetLinkGroup()
         {
             Categories = await categoryHttpClient.GetCategoriesAsync();
@@ -33,5 +55,23 @@
 
         public async Task GetProductsAsync() =>
        Products = await productHttpClient.GetProductsAsync(CurrentCategoryId);
+
+        public async Task GetProductsByNameAsync(string productName)
+        {
+            Products = await productHttpClient.GetAllProductsAsync();
+            Products = Products.Where(p => p.Name != null && p.Name.Equals(productName)).ToList();
+        }
+
+        public async Task GetProductsByGenereAsync(string productGenere)
+        {
+            Products = await productHttpClient.GetAllProductsAsync();
+            Products = Products
+                .Where(p => p.Generes != null && p.Generes.Any(g => g.GenereType != null && g.GenereType.Equals(productGenere)))
+                .ToList();
+        }
+
+
+
+
     }
 }

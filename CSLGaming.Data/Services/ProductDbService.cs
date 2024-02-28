@@ -25,6 +25,8 @@ namespace CSLGaming.Data.Services
             return MapList<Product, ProductGetDTO>(products);
         }
 
+
+
         public override Task<ProductGetDTO> SingleAsync<TEntity, ProductGetDTO>(int id)
         {
             IncludeNavigationsFor<AgeRestriction>();

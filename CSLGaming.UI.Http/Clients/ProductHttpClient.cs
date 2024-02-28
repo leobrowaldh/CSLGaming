@@ -37,4 +37,28 @@ public class ProductHttpClient
             return [];
         }
     }
+
+    public async Task<List<ProductGetDTO>> GetAllProductsAsync()
+    {
+        try
+        {
+            // Use the relative path for getting all products
+            string relativePath = $"{_httpClient.BaseAddress}"; // Adjust the endpoint or path as per your API
+
+            using HttpResponseMessage response = await _httpClient.GetAsync(relativePath);
+            response.EnsureSuccessStatusCode();
+
+            var resultStream = await response.Content.ReadAsStreamAsync();
+            var result = await JsonSerializer.DeserializeAsync<List<ProductGetDTO>>(resultStream,
+                new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+            return result ?? new List<ProductGetDTO>();
+        }
+        catch (Exception ex)
+        {
+            return new List<ProductGetDTO>();
+        }
+    }
+
+
 }
