@@ -1,4 +1,5 @@
-﻿<nav class="navbar navbar-expand-lg bg-body-tertiary">
+﻿
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid d-flex justify-content-between align-items-center">
         <!-- Logo -->
         <a class="navbar-brand" href="#">
@@ -55,6 +56,8 @@
 
 
 @code {
+    [Parameter] public UIService? Service { get; set; }
+
     public enum Choice {Category, Game, Genere}
     public Choice CurrentChoice { get; set; } = Choice.Category;
 
@@ -62,6 +65,7 @@
     {
         CurrentChoice = choice;
     }
+
 }
 
 

@@ -1,19 +1,18 @@
-using AutoMapper;
-using CSLGaming.Data.Shared;
+using Blazored.LocalStorage;
 using CSLGaming.UI;
 using CSLGaming.UI.Services;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using System.Data.Common;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
-builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) }); // Denna services skapar ett ny instans vid varje anrop
-builder.Services.AddSingleton<UIService>(); // Denna skapas sålänge programmet lever (är på)
+builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) }); 
 builder.Services.AddHttpClient<CategoryHttpClient>();
 builder.Services.AddHttpClient<ProductHttpClient>();
+builder.Services.AddBlazoredLocalStorageAsSingleton();
+builder.Services.AddSingleton<UIService>();
 
 ConfigureAutoMapper();
 
@@ -23,8 +22,8 @@ void ConfigureAutoMapper()
 {
     var config = new MapperConfiguration(cfg =>
     {
-        cfg.CreateMap<CategoryGetDTO, LinkOption>();
-            
+        cfg.CreateMap<CategoryGetDTO, LinkOption>().ReverseMap();
+        cfg.CreateMap<CartDTO, ProductGetDTO>().ReverseMap();
     });
 
     var mapper = config.CreateMapper();
