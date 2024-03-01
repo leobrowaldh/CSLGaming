@@ -1,6 +1,6 @@
 ﻿namespace CSLGaming.UI.Services
 {
-    
+
 
     public class UIService(CategoryHttpClient categoryHttpClient, ProductHttpClient productHttpClient, IMapper mapper)
     {
@@ -12,7 +12,36 @@
 
         public List<LinkGroup> CategoryLinkGroups { get; private set; } =
         [
-            new LinkGroup { Name = "Categories" }
+            new LinkGroup()
+            {
+            Name = "Category",
+            Id = 1,
+            LinkOptions= new(){
+                new LinkOption { Id = 1, CategoryType = "Women", IsSelected = true },
+                new LinkOption { Id = 2, CategoryType = "Men", IsSelected = false },
+                new LinkOption { Id = 3, CategoryType = "Children", IsSelected = false }
+                }
+            },
+            new LinkGroup()
+            {
+            Name = "Games",
+            Id =2,
+            LinkOptions= new(){
+                new LinkOption { Id = 1, CategoryType = "Women", IsSelected = true },
+                new LinkOption { Id = 2, CategoryType = "Men", IsSelected = false },
+                new LinkOption { Id = 3, CategoryType = "Children", IsSelected = false }
+                }
+            },
+            new LinkGroup()
+            {
+            Name = "Genere",
+            Id =3,
+            LinkOptions= new(){
+                new LinkOption { Id = 1, CategoryType = "Women", IsSelected = true },
+                new LinkOption { Id = 2, CategoryType = "Men", IsSelected = false },
+                new LinkOption { Id = 3, CategoryType = "Children", IsSelected = false }
+                }
+            }
         ];
 
         public async Task GetLinkGroup()

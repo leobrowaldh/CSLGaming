@@ -1,4 +1,5 @@
-﻿<nav class="navbar navbar-expand-lg bg-body-tertiary">
+﻿@using CSLGaming.UI.Services
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid d-flex justify-content-between align-items-center">
         <!-- Logo -->
         <a class="navbar-brand" href="#">
@@ -13,17 +14,16 @@
         <!-- Collapsible Content -->
         <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
             <!-- Menu Items -->
-            <ul class="navbar-nav mb-2 mb-lg-0">
-                <li class="nav-item">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         @CurrentChoice.ToString()
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#" @onclick="() => UpdateChoice(Choice.Game)">Game</a></li>
-                        <li><a class="dropdown-item" href="#" @onclick="() => UpdateChoice(Choice.Genere)">Genere</a></li>
-                        <li><a class="dropdown-item" href="#" @onclick="() => UpdateChoice(Choice.Category)">Category</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        @foreach (var group in Service!.CategoryLinkGroups)
+                        {
+                            <li><a class="dropdown-item" href="#" @onclick="() => {OnCategoryLinkClick(group.Id); UpdateChoice(group.Id);}">@group.Id@group.Name</a></li>
+                        }
                     </ul>
                 </li>
             </ul>
@@ -58,10 +58,52 @@
     public enum Choice {Category, Game, Genere}
     public Choice CurrentChoice { get; set; } = Choice.Category;
 
-    private void UpdateChoice(Choice choice)
+    private void UpdateChoice(int id)
     {
-        CurrentChoice = choice;
+        switch (id)
+        {
+            case 1:
+                CurrentChoice = Choice.Category;
+                break;
+            case 2:
+                CurrentChoice = Choice.Game;
+                break;
+            case 3:
+                CurrentChoice = Choice.Genere;
+                break;
+            default:
+                CurrentChoice = Choice.Category; // Default choice
+                break;
+        }
     }
+    [Parameter] public EventCallback OnChange { get; set; } // Updaterar sidan
+    [Inject]
+    public UIService Service { get; set; }
+
+    private async Task OnCategoryLinkClick(int groupId)
+    {
+        await Service.OnCategoryLinkClick(groupId);
+        // Perform any additional actions if needed
+    }
+
+    async Task OnAsideCallback(int id)
+    {
+        if (OnChange.HasDelegate && Service is not null)
+        {
+            await Service.OnCategoryLinkClick(id);
+            await OnChange.InvokeAsync();
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Service is not null)
+        {
+            await Service.GetLinkGroup();
+            await OnChange.InvokeAsync();
+        }
+    }
+
 }
 
 
