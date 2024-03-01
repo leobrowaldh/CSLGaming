@@ -1,0 +1,188 @@
+﻿@page "/admin"
+
+@using CSLGaming.API.DTO
+@using CSLGaming.UI.Admin.AdminServices
+@inject UIAdminService Service;
+
+<div class="top-row ps-3 navbar navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">CSLGaming.UI.Admin</a>
+        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</div>
+
+<div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
+    <nav class="flex-column">
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="counter">
+                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Counter
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="weather">
+                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Weather
+            </NavLink>
+        </div>
+    </nav>
+</div>
+
+<!-- Adding mechanism div -->
+<div class="adding-mechanism">
+    <h3>Add New Category</h3>
+    <div>
+        <label for="categoryName">Category Name:</label>
+        <input type="text" id="categoryName" @bind="newCategoryName" />
+    </div>
+    <div>
+        <label for="categoryId">Category ID to Delete:</label>
+        <input type="number" id="categoryId" @bind="categoryIdToDelete" />
+    </div>
+
+    <button class="btn btn-primary" @onclick="(e) => GenerateAndAddCategory()">Add Category</button>
+    <button class="btn btn-primary" @onclick="(e) => DeleteCategory()">Delete Category</button>
+    <button class="btn btn-primary" @onclick="(e) => ShowAllCategories()">Show All Categories</button>
+    <button class="btn btn-primary" @onclick="(e) => ShowOneCategory()">Get Category</button>
+
+</div>
+
+<div>
+    <h3>All Categories</h3>
+    @if (Service.Categories != null)
+    {
+        foreach (var category in Service.Categories)
+        {
+            <p>@category.CategoryType</p>
+        }
+    }
+</div>
+
+<div>
+    <label for="categoryId">Category ID to Get:</label>
+    <input type="number" id="categoryId" @bind="categoryToGet" />
+</div>
+
+<label for="updateCategoryId">Category ID to Update:</label>
+<input type="number" id="updateCategoryId" @bind="selectedCategoryId" />
+<button class="btn btn-primary" @onclick="(e) => LoadCategoryForUpdate()">Load Category</button>
+
+<div>
+    <h3>Update Category</h3>
+    @if (selectedCategoryForUpdate != null)
+    {
+        <div>
+            <label for="updatedCategoryName">Updated Category Name:</label>
+            <input type="text" id="updatedCategoryName" @bind="selectedCategoryForUpdate.CategoryType" />
+        </div>
+        <button class="btn btn-primary" @onclick="(e) => UpdateCategory()">Update Category</button>
+    }
+</div>
+
+
+
+
+@code {
+    private bool collapseNavMenu = true;
+    private string newCategoryName = "";
+    private int categoryIdToDelete = 0;
+    private int categoryToGet;
+
+    private int selectedCategoryId;
+    private CategoryPutDTO selectedCategoryForUpdate;
+
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+
+    private async Task GenerateAndAddCategory()
+    {
+        // Check if category name is provided
+        if (!string.IsNullOrWhiteSpace(newCategoryName) && Service is not null)
+        {
+            // Assuming you have a CategoryPostDTO instance to add
+            CategoryPostDTO categoryToAdd = new CategoryPostDTO
+                {
+                    CategoryType = newCategoryName
+                    // Add other properties as needed
+                };
+
+            // Pass the categoryToAdd to the AddAdminCategory method
+            await Service.AddAdminCategory(newCategoryName);
+        }
+        else
+        {
+            // Handle case where category name is not provided
+            // You might want to display an error message or take appropriate action
+        }
+    }
+
+    private async Task DeleteCategory()
+    {
+        await Service.DeleteAdminCategory(categoryIdToDelete);
+    }
+
+    private async Task ShowAllCategories()
+    {
+        // Trigger the method to get all categories
+        await Service.AdminGetAllCategories();
+    }
+
+    private async Task ShowOneCategory()
+    {
+        await Service.GetAdminCategory(categoryToGet);
+    }
+
+    private async Task LoadCategoryForUpdate()
+    {
+        if (selectedCategoryId != 0)
+        {
+            // Retrieve the selected category for update
+            await Service.GetAdminCategoryUpdate(selectedCategoryId);
+            selectedCategoryForUpdate = Service.CategoryToUpdate;
+        }
+        else
+        {
+            // Handle case where no category is selected
+            // You might want to display an error message or take appropriate action
+        }
+    }
+
+    private async Task UpdateCategory()
+    {
+        if (selectedCategoryForUpdate != null)
+        {
+            try
+            {
+                // Update the category on the server using the selectedCategoryId
+                await Service.UpdateAdminCategory(selectedCategoryId, selectedCategoryForUpdate);
+
+                // Optionally, refresh the list of categories or take other actions
+                await Service.AdminGetAllCategories();
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions, log, or rethrow if necessary
+                // Display an error message if needed
+            }
+        }
+        else
+        {
+            // Handle case where no category is selected for update
+            // You might want to display an error message or take appropriate action
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        
+    }
+}
