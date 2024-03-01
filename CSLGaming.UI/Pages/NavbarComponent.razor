@@ -3,7 +3,7 @@
     <div class="container-fluid d-flex justify-content-between align-items-center">
         <!-- Logo -->
         <a class="navbar-brand" href="#">
-            <img src="/images/image.png" alt="CSL-gaming logo" width="120" height="30">
+            <img src="/images/Logo3.png" alt="CSL-gaming logo" width="100" height="80">
         </a>
 
         <!-- Toggler -->
@@ -55,6 +55,8 @@
 
 
 @code {
+    [Parameter] public UIService? Service { get; set; }
+
     public enum Choice {Category, Game, Genere}
     public Choice CurrentChoice { get; set; } = Choice.Category;
 

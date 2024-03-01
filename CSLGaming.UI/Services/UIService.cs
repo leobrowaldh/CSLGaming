@@ -1,14 +1,18 @@
-﻿namespace CSLGaming.UI.Services
+﻿using Blazored.LocalStorage;
+
+namespace CSLGaming.UI.Services
 {
 
 
-    public class UIService(CategoryHttpClient categoryHttpClient, ProductHttpClient productHttpClient, IMapper mapper)
+    public class UIService(CategoryHttpClient categoryHttpClient, ProductHttpClient productHttpClient, IMapper mapper,
+        ILocalStorageService localStorageService)
     {
         public int CurrentCategoryId { get; set; }
 
         public List<CategoryGetDTO> Categories { get; set; } = [];
 
         public List<ProductGetDTO> Products { get; set; } = [];
+        public List<CartDTO> CartItems { get; set; } = [];
 
         public List<LinkGroup> CategoryLinkGroups { get; private set; } =
         [
@@ -61,6 +65,14 @@
         }
 
         public async Task GetProductsAsync() =>
-       Products = await productHttpClient.GetProductsAsync(CurrentCategoryId);
+        Products = await productHttpClient.GetProductsAsync(CurrentCategoryId);
+
+        #region Local storage
+
+        public async Task<T?> GetLocalStorageAsync<T>(string key) => await localStorageService.GetItemAsync<T>(key);
+        public async Task SetLocalStorageAsync<T>(string key, T value) => await localStorageService.SetItemAsync(key, value);
+        public async Task RemoveLocalStorageAsync<T>(string key) => await localStorageService.RemoveItemAsync(key);
+
+        #endregion
     }
 }

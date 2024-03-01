@@ -1,0 +1,17 @@
+﻿<div class="card" style="width: 18rem;">
+    <img src="@Item.PictureUrl" class="card-img-top" alt="Product Picture">
+    <div class="card-body">
+        <h5 class="card-title">@Item.Name</h5>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">@Item.Price</li>
+        <li class="list-group-item">@Item.SelectedCategory.CategoryType</li>
+    </ul>
+    <div class="card-body">
+        <a href="#" class="btn btn-primary">Remove</a>
+    </div>
+</div>
+
+@code {
+	[Parameter] public CartDTO? Item { get; set; }
+}
