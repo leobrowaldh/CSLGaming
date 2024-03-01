@@ -13,7 +13,7 @@
 
 
 <CascadingValue Value="Service" Name="Service">
-    <NavbarComponent />
+    <NavbarComponent/>
     <div id="viewport" class="d-flex vh-100"> 
         <AsideComponents OnChange="OnChange"/>
         <ProductComponent OnChange="OnChange"/>
@@ -21,6 +21,7 @@
 </CascadingValue>
 
 @code{
+
     //Loading local storage into Service
     protected override async Task OnParametersSetAsync()
     {
@@ -29,6 +30,6 @@
 
     void OnChange()
     {
-        //reload the page
+        //reload the page and all subcomponents
     }
 }
