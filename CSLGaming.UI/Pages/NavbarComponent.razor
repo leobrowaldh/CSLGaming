@@ -55,7 +55,7 @@
 
 
 @code {
-    //[Parameter] public UIService? Service { get; set; }
+    [CascadingParameter(Name = "Service")] public UIService? Service { get; set; }
 
     public enum Choice {Category, Game, Genere}
     public Choice CurrentChoice { get; set; } = Choice.Category;
@@ -79,8 +79,6 @@
         }
     }
     [Parameter] public EventCallback OnChange { get; set; } // Updaterar sidan
-    [Inject]
-    public UIService Service { get; set; }
 
     private async Task OnCategoryLinkClick(int groupId)
     {

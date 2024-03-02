@@ -52,7 +52,7 @@
         CartDTO cartItem = mapper.Map<CartDTO>(product);
         cartItem.SelectedCategory = Service.Categories.FirstOrDefault(c => c.Id == Service.CurrentCategoryId);
         Service.CartItems.Add(cartItem);
-        await Service.SetLocalStorageAsync<List<CartDTO>>("CartItems", Service.CartItems);
+        await Service.SetLocalStorageAsync();
 
         if (OnChange.HasDelegate && Service is not null)
         {

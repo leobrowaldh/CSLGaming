@@ -69,9 +69,11 @@ namespace CSLGaming.UI.Services
 
         #region Local storage
 
-        public async Task<T?> GetLocalStorageAsync<T>(string key) => await localStorageService.GetItemAsync<T>(key);
-        public async Task SetLocalStorageAsync<T>(string key, T value) => await localStorageService.SetItemAsync(key, value);
-        public async Task RemoveLocalStorageAsync<T>(string key) => await localStorageService.RemoveItemAsync(key);
+        public async Task GetLocalStorageAsync() => 
+            CartItems = await localStorageService.GetItemAsync<List<CartDTO>>("CartItems") ?? [];
+       
+        public async Task SetLocalStorageAsync() => await localStorageService.SetItemAsync("CartItems", CartItems);
+        public async Task RemoveLocalStorageAsync(string key) => await localStorageService.RemoveItemAsync(key);
 
         #endregion
     }

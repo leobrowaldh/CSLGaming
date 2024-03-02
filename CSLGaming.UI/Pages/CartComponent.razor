@@ -25,6 +25,6 @@
 
 
 @code {
-    [Parameter] public UIService? Service { get; set; }
+    [CascadingParameter(Name = "Service")] public UIService? Service { get; set; }
 
 }
