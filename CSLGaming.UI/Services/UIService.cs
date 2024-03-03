@@ -1,18 +1,51 @@
-﻿namespace CSLGaming.UI.Services
-{
-    
+﻿using Blazored.LocalStorage;
 
-    public class UIService(CategoryHttpClient categoryHttpClient, ProductHttpClient productHttpClient, IMapper mapper)
+namespace CSLGaming.UI.Services
+{
+
+
+    public class UIService(CategoryHttpClient categoryHttpClient, ProductHttpClient productHttpClient, IMapper mapper,
+        ILocalStorageService localStorageService)
     {
         public int CurrentCategoryId { get; set; }
 
         public List<CategoryGetDTO> Categories { get; set; } = [];
 
         public List<ProductGetDTO> Products { get; set; } = [];
+        public List<CartDTO> CartItems { get; set; } = [];
 
         public List<LinkGroup> CategoryLinkGroups { get; private set; } =
         [
-            new LinkGroup { Name = "Categories" }
+            new LinkGroup()
+            {
+            Name = "Category",
+            Id = 1,
+            LinkOptions= new(){
+                new LinkOption { Id = 1, CategoryType = "Women", IsSelected = true },
+                new LinkOption { Id = 2, CategoryType = "Men", IsSelected = false },
+                new LinkOption { Id = 3, CategoryType = "Children", IsSelected = false }
+                }
+            },
+            new LinkGroup()
+            {
+            Name = "Games",
+            Id =2,
+            LinkOptions= new(){
+                new LinkOption { Id = 1, CategoryType = "Women", IsSelected = true },
+                new LinkOption { Id = 2, CategoryType = "Men", IsSelected = false },
+                new LinkOption { Id = 3, CategoryType = "Children", IsSelected = false }
+                }
+            },
+            new LinkGroup()
+            {
+            Name = "Genere",
+            Id =3,
+            LinkOptions= new(){
+                new LinkOption { Id = 1, CategoryType = "Women", IsSelected = true },
+                new LinkOption { Id = 2, CategoryType = "Men", IsSelected = false },
+                new LinkOption { Id = 3, CategoryType = "Children", IsSelected = false }
+                }
+            }
         ];
 
         public async Task GetIdByName(string categoryName)
@@ -54,24 +87,16 @@
         }
 
         public async Task GetProductsAsync() =>
-       Products = await productHttpClient.GetProductsAsync(CurrentCategoryId);
+        Products = await productHttpClient.GetProductsAsync(CurrentCategoryId);
 
-        public async Task GetProductsByNameAsync(string productName)
-        {
-            Products = await productHttpClient.GetAllProductsAsync();
-            Products = Products.Where(p => p.Name != null && p.Name.Equals(productName)).ToList();
-        }
+        #region Local storage
 
-        public async Task GetProductsByGenereAsync(string productGenere)
-        {
-            Products = await productHttpClient.GetAllProductsAsync();
-            Products = Products
-                .Where(p => p.Generes != null && p.Generes.Any(g => g.GenereType != null && g.GenereType.Equals(productGenere)))
-                .ToList();
-        }
+        public async Task GetLocalStorageAsync() => 
+            CartItems = await localStorageService.GetItemAsync<List<CartDTO>>("CartItems") ?? [];
+       
+        public async Task SetLocalStorageAsync() => await localStorageService.SetItemAsync("CartItems", CartItems);
+        public async Task RemoveLocalStorageAsync(string key) => await localStorageService.RemoveItemAsync(key);
 
-
-
-
+        #endregion
     }
 }

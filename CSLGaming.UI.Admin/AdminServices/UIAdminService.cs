@@ -13,20 +13,20 @@ namespace CSLGaming.UI.Admin.AdminServices
 
         public CategoryPutDTO CategoryToUpdate { get; set; }
 
-        public UIAdminService(AdminCategoryClient catAdminClient) // Vi vill använda en instans hela tiden, därför injeserar vi en instans (singleton i dettafall) så att en ny instans inte skapas varje gång vi kallar denna klass. Vi injeserar den som redan körs sålänge programmet körs. 
+        public UIAdminService(AdminCategoryClient catAdminClient)
         {
-            _catAdminClient = catAdminClient; 
+            _catAdminClient = catAdminClient;
         }
 
         public async Task AddAdminCategory(string categoryName)
         {
-            // Argument string som skall reflektera namn på kategorin.
+            // Assuming your CategoryPostDTO has a property named 'CategoryType'
             CategoryPostDTO cat = new CategoryPostDTO
             {
-                CategoryType = categoryName // Sätt objektets namn i en instans av CategoryDto
+                CategoryType = categoryName
             };
 
-            await _catAdminClient.AddAdminCategory(cat); // Skicka in den som argument
+            await _catAdminClient.AddAdminCategory(cat);
         }
 
         public async Task DeleteAdminCategory(int catId)
@@ -38,17 +38,17 @@ namespace CSLGaming.UI.Admin.AdminServices
 
         public async Task GetAdminCategory(int categoryId)
         {
-            Categories = new List<CategoryGetDTO> { await _catAdminClient.GetAdminCategory(categoryId) }; // Återanvände listan för att spara en kategory, vet inte om detta är bra!
+            Categories = new List<CategoryGetDTO> { await _catAdminClient.GetAdminCategory(categoryId) }; // Update the list with a single item
         }
 
-        public async Task GetAdminCategoryUpdate(int id) => CategoryToUpdate = await _catAdminClient.GetAdminCategoryToUpdate(id); // Hämta kategorin, som skall uppdateras.
+        public async Task GetAdminCategoryUpdate(int id) => CategoryToUpdate = await _catAdminClient.GetAdminCategoryToUpdate(id);
 
         public async Task UpdateAdminCategory(int id, CategoryPutDTO cat)
         {
             if (CategoryToUpdate != null)
             {
                 // Assuming CategoryToUpdate has been modified based on user input
-                await _catAdminClient.UpdateAdminCategory(CategoryToUpdate.Id, CategoryToUpdate); // Här uppdateras den sen.
+                await _catAdminClient.UpdateAdminCategory(CategoryToUpdate.Id, CategoryToUpdate);
             }
         }
     }
