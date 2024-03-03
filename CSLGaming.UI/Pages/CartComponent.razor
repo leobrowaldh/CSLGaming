@@ -26,11 +26,16 @@
 
 @code {
     [CascadingParameter(Name = "Service")] public UIService? Service { get; set; }
+    [Parameter] public EventCallback OnChange { get; set; }
 
     public async void OnRemoveItem(CartDTO ItemToRemove)
     {
         Service?.CartItems.Remove(ItemToRemove);
         await Service?.SetLocalStorageAsync();
+        if(OnChange.HasDelegate && Service is not null)
+        {
+            OnChange.InvokeAsync();
+        }
     }
 
 

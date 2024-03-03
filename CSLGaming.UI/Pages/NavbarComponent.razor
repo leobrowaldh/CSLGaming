@@ -43,19 +43,32 @@
             </a>
 
             <!-- Cart Button -->
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cart">
+            <button type="button" class="btn btn-primary position-relative" data-bs-toggle="modal" data-bs-target="#cart">
                 <i class="bi bi-cart"></i>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    @Service.CartItems.Count()
+                </span>
+
             </button>
 
         </div>
     </div>
 </nav>
 
-<CartComponent/>
+<CartComponent OnChange="OnCartChange" />
 
 
 @code {
     [CascadingParameter(Name = "Service")] public UIService? Service { get; set; }
+    [Parameter] public EventCallback OnChange { get; set; }
+
+    public void OnCartChange()
+    {
+        if(OnChange.HasDelegate && Service is not null)
+        {
+            OnChange.InvokeAsync();
+        }
+    }
 
     public enum Choice {Category, Game, Genere}
     public Choice CurrentChoice { get; set; } = Choice.Category;
@@ -78,7 +91,6 @@
                 break;
         }
     }
-    [Parameter] public EventCallback OnChange { get; set; } // Updaterar sidan
 
     private async Task OnCategoryLinkClick(int groupId)
     {
