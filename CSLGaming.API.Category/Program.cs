@@ -47,7 +47,7 @@ void SeedData(IHost app)
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(); // Swagger kan hantera serilasation med json automatiskt
 }
 
 app.UseHttpsRedirection();
