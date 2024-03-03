@@ -1,0 +1,42 @@
+﻿<div class="modal fade" id="cart" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">ShoppingCart</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                @if (Service?.CartItems is not null)
+                {
+                    foreach (CartDTO cartItem in Service.CartItems)
+                    {
+                        <CartItemComponent Item="cartItem" OnRemoveItem="OnRemoveItem"/>
+                    }
+                }
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Checkout</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@code {
+    [CascadingParameter(Name = "Service")] public UIService? Service { get; set; }
+    [Parameter] public EventCallback OnChange { get; set; }
+
+    public async void OnRemoveItem(CartDTO ItemToRemove)
+    {
+        Service?.CartItems.Remove(ItemToRemove);
+        await Service?.SetLocalStorageAsync();
+        if(OnChange.HasDelegate && Service is not null)
+        {
+            OnChange.InvokeAsync();
+        }
+    }
+
+
+}

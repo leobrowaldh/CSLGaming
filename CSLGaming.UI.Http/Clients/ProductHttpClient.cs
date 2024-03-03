@@ -26,9 +26,9 @@ public class ProductHttpClient
             using HttpResponseMessage response = await _httpClient.GetAsync(relativePath);
             response.EnsureSuccessStatusCode();
 
-            var resultStream = await response.Content.ReadAsStreamAsync(); // Streamar ifall det är mycket som skall hämtas, lättare för minnet. Nödvändigt för en produkt?
+            var resultStream = await response.Content.ReadAsStreamAsync();
             var result = await JsonSerializer.DeserializeAsync<List<ProductGetDTO>>(resultStream,
-                new JsonSerializerOptions { PropertyNameCaseInsensitive = true }); // Göra så att Json inte är case sensitive!
+                new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
             return result ?? [];
         }

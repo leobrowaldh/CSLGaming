@@ -1,11 +1,8 @@
-﻿@using CSLGaming.API.Extensions.Extensions
-@using CSLGaming.UI.Services
-
-
+﻿@inject IMapper mapper;
 
 <section>
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
-        @foreach (var product in service!.Products)
+        @foreach (var product in Service!.Products)
         {
             <div class="col mb-4">
                 <div class="card h-100">
@@ -46,29 +43,28 @@
 
 
 @code {
-    [CascadingParameter(Name = "Service")] public UIService? service { get; set; }
+    [CascadingParameter(Name = "Service")] public UIService? Service { get; set; }
 
     [Parameter] public EventCallback OnChange { get; set; }
 
     async Task AddToCart(ProductGetDTO product)
     {
-        
-    }
+        CartDTO cartItem = mapper.Map<CartDTO>(product);
+        cartItem.SelectedCategory = Service.Categories.FirstOrDefault(c => c.Id == Service.CurrentCategoryId);
+        Service.CartItems.Add(cartItem);
+        await Service.SetLocalStorageAsync();
 
-    async Task OnAsideCallback(int id)
-    {
-        if (OnChange.HasDelegate && service is not null)
+        if (OnChange.HasDelegate && Service is not null)
         {
-            await service.OnCategoryLinkClick(id);
             await OnChange.InvokeAsync();
         }
     }
 
     protected override async Task OnInitializedAsync() 
     {
-        if (service is not null)
+        if (Service is not null)
         {
-            await service.GetLinkGroup();
+            await Service.GetLinkGroup();
             await OnChange.InvokeAsync(); 
         }
     }

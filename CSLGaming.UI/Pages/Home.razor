@@ -10,19 +10,26 @@
 -->
 
 
-    <NavbarComponent OnChange="OnChange"/>
 
 
-<div id="viewport" class="d-flex vh-100"> 
-    <CascadingValue Value="Service" Name="Service">
-    <AsideComponents OnChange="OnChange"/>
-    <ProductComponent OnChange="OnChange"/>
-    </CascadingValue>
-</div>
+<CascadingValue Value="Service" Name="Service">
+    <NavbarComponent />
+    <div id="viewport" class="d-flex vh-100"> 
+        <AsideComponents OnChange="OnChange"/>
+        <ProductComponent OnChange="OnChange"/>
+    </div>
+</CascadingValue>
 
 @code{
+
+    //Loading local storage into Service
+    protected override async Task OnParametersSetAsync()
+    {
+        await Service.GetLocalStorageAsync();
+    }
+
     void OnChange()
     {
-        
+        //reload the page and all subcomponents
     }
 }

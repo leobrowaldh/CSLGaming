@@ -12,19 +12,19 @@ namespace CSLGaming.UI.Http.Clients
     public class AdminCategoryClient
     {
         private readonly HttpClient _httpClient;
-        string _baseAdress = "https://localhost:7042"; // Hämta basadressen som är densamma som api!
+        string _baseAdress = "https://localhost:7042";
 
         public AdminCategoryClient(HttpClient httpClient)
         {
             _httpClient = httpClient;
-            _httpClient.BaseAddress = new Uri($"{_baseAdress}/api"); // clientens basadress samma som api.
+            _httpClient.BaseAddress = new Uri($"{_baseAdress}/api");
         }
 
         public async Task AddAdminCategory(CategoryPostDTO categoryPostDTO)
         {
             try
             {
-                // Serialisera catagegorypost dto till Json, så apit httpclient kan ta emot och sedan göra samma sak för att lägga till den till databasen.
+                // Serialize the CategoryPostDTO object to JSON and send it in the request body
                 var jsonContent = new StringContent(JsonSerializer.Serialize(categoryPostDTO), Encoding.UTF8, "application/json");
 
                 using HttpResponseMessage response = await _httpClient.PostAsync("api/categorys", jsonContent);
@@ -44,14 +44,15 @@ namespace CSLGaming.UI.Http.Clients
         {
             try
             {
-                // Matcha APIs url för att kunna deleta. Skicka in Idt så den skall veta vilken den skall ta bort.
+                // Construct the endpoint URL for the specific category
                 string deleteUrl = $"/api/categorys/{categoryId}";
 
-                // Vi använder oss av _httpvlient som vars basadress är vårat api, och skicka med den nya strängen så den använder cataegory/delete med id, så den kan veta vilken den skall ta bort.
+                // Send the DELETE request to the API
                 using HttpResponseMessage response = await _httpClient.DeleteAsync(deleteUrl);
                 response.EnsureSuccessStatusCode();
 
-               
+                // Optionally handle the response content if needed
+                // var result = await response.Content.ReadFromJsonAsync<ResponseType>();
             }
             catch (Exception ex)
             {
@@ -69,23 +70,21 @@ namespace CSLGaming.UI.Http.Clients
         {
             try
             {
-                // Använder oss av api url för att hämta alla kategorier.
+                // Construct the endpoint URL for retrieving all categories
                 string getUrl = "/api/categorys";
 
-                // Använder den url, läger den inom get metoden så den skall veta vilken basadress + delen i url som är för att getta.
+                // Perform the GET request using getUrl
                 using HttpResponseMessage response = await _httpClient.GetAsync(getUrl);
                 response.EnsureSuccessStatusCode();
 
-                // Ta den i jsonformat, mappa tillbaka den till en Lista av catgetdto
+                // Deserialize the response body to get the list of categories
                 var result = await response.Content.ReadFromJsonAsync<List<CategoryGetDTO>>();
 
-                return result ?? []; // returnera resultatet, ifall den ör null tom lista.
+                return result;
             }
             catch (Exception ex)
             {
-                await Console.Out.WriteLineAsync("Could'nt get Category");
-
-                return [];
+                // Handle exceptions, log, or rethrow if necessary
                 throw;
             }
         }
@@ -94,21 +93,21 @@ namespace CSLGaming.UI.Http.Clients
         {
             try
             {
-                // Lägg url för att hämta en category i API
+                // Construct the endpoint URL for retrieving all categories
                 string getUrl = $"/api/categorys/{id}";
 
-                // Samma princip som ovan
+                // Perform the GET request using getUrl
                 using HttpResponseMessage response = await _httpClient.GetAsync(getUrl);
                 response.EnsureSuccessStatusCode();
 
-                // Deserialisera json till en CatGetDto
+                // Deserialize the response body to get the list of categories
                 var result = await response.Content.ReadFromJsonAsync<CategoryGetDTO>();
 
                 return result;
             }
             catch (Exception ex)
             {
-                
+                // Handle exceptions, log, or rethrow if necessary
                 throw;
             }
         }
@@ -117,14 +116,14 @@ namespace CSLGaming.UI.Http.Clients
         {
             try
             {
-                // Samma som ovan, kanske bör ta bort denna
+                // Construct the endpoint URL for retrieving all categories
                 string getUrl = $"/api/categorys/{id}";
 
-                
+                // Perform the GET request using getUrl
                 using HttpResponseMessage response = await _httpClient.GetAsync(getUrl);
                 response.EnsureSuccessStatusCode();
 
-                
+                // Deserialize the response body to get the list of categories
                 var result = await response.Content.ReadFromJsonAsync<CategoryGetDTO>();
 
                 return result;
@@ -142,13 +141,12 @@ namespace CSLGaming.UI.Http.Clients
         {
             try
             {
-                // Samma som add, fast skall upddatera
                 string putUrl = $"/api/categorys/{id}";
 
-                // Serialisera DTO objektet till en Json, kolla upp exakt vad Encodingen gör och json/application gör!
+                // Serialize the CategoryPutDTO object to JSON and send it in the request body
                 var jsonContent = new StringContent(JsonSerializer.Serialize(catUpdate), Encoding.UTF8, "application/json");
 
-                // Använd urlen och JsonContenten för att kunna uppdatera via apit som sen skickas till db.
+                // Send the updated data to the server
                 using HttpResponseMessage response = await _httpClient.PutAsync(putUrl, jsonContent);
                 response.EnsureSuccessStatusCode();
 
