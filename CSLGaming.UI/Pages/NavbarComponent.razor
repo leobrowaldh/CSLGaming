@@ -65,15 +65,19 @@
             </a>
 
             <!-- Cart Button -->
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cart">
+            <button type="button" class="btn btn-primary position-relative" data-bs-toggle="modal" data-bs-target="#cart">
                 <i class="bi bi-cart"></i>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    @Service.CartItems.Count()
+                </span>
+
             </button>
 
         </div>
     </div>
 </nav>
 
-<CartComponent />
+<CartComponent OnChange="OnCartChange" />
 
 
 @code {

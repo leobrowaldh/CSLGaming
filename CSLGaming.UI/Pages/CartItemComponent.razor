@@ -3,15 +3,27 @@
     <div class="card-body">
         <h5 class="card-title">@Item.Name</h5>
     </div>
-    <ul class="list-group list-group-flush">
-        <li class="list-group-item">@Item.Price</li>
-        <li class="list-group-item">@Item.SelectedCategory.CategoryType</li>
+    <ul class="list-group list-group-flush" style="border: none;">
+        <li class="list-group-item" style="border: none;">
+            <span class="badge text-bg-success">@Item.Price Kr</span>
+            </li>
+        <li class="list-group-item">
+            <span class="badge text-bg-success">@Item.SelectedCategory.CategoryType</span>
+        </li>
     </ul>
     <div class="card-body">
-        <a href="#" class="btn btn-primary">Remove</a>
+        <button type="button" class="btn btn-danger" @onclick="RemoveItem">Remove</button>
+
     </div>
 </div>
 
 @code {
-	[Parameter] public CartDTO? Item { get; set; }
+    [Parameter] public CartDTO? Item { get; set; }
+    [Parameter] public EventCallback<CartDTO> OnRemoveItem { get; set; }
+
+    public void RemoveItem()
+    {
+        if (OnRemoveItem.HasDelegate)
+            OnRemoveItem.InvokeAsync(Item);
+    }
 }

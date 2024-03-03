@@ -10,7 +10,7 @@
                 {
                     foreach (CartDTO cartItem in Service.CartItems)
                     {
-                        <CartItemComponent Item="cartItem"/>
+                        <CartItemComponent Item="cartItem" OnRemoveItem="OnRemoveItem"/>
                     }
                 }
                 
@@ -25,6 +25,18 @@
 
 
 @code {
-    [Parameter] public UIService? Service { get; set; }
-    
+    [CascadingParameter(Name = "Service")] public UIService? Service { get; set; }
+    [Parameter] public EventCallback OnChange { get; set; }
+
+    public async void OnRemoveItem(CartDTO ItemToRemove)
+    {
+        Service?.CartItems.Remove(ItemToRemove);
+        await Service?.SetLocalStorageAsync();
+        if(OnChange.HasDelegate && Service is not null)
+        {
+            OnChange.InvokeAsync();
+        }
+    }
+
+
 }

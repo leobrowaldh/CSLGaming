@@ -21,14 +21,15 @@
 </CascadingValue>
 
 @code{
+
     //Loading local storage into Service
     protected override async Task OnParametersSetAsync()
     {
-        Service.CartItems = await Service.GetLocalStorageAsync<List<CartDTO>>("CartItems") ?? [];
+        await Service.GetLocalStorageAsync();
     }
 
     void OnChange()
     {
-        //reload the page
+        //reload the page and all subcomponents
     }
 }

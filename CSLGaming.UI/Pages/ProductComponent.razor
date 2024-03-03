@@ -52,16 +52,10 @@
         CartDTO cartItem = mapper.Map<CartDTO>(product);
         cartItem.SelectedCategory = Service.Categories.FirstOrDefault(c => c.Id == Service.CurrentCategoryId);
         Service.CartItems.Add(cartItem);
-        await Service.SetLocalStorageAsync<List<CartDTO>>("CartItems", Service.CartItems);
+        await Service.SetLocalStorageAsync();
 
-        //TODO: Trigger event to Home that tells Navbar to tell CartComponent to refresh
-    }
-
-    async Task OnAsideCallback(int id)
-    {
         if (OnChange.HasDelegate && Service is not null)
         {
-            await Service.OnCategoryLinkClick(id);
             await OnChange.InvokeAsync();
         }
     }
