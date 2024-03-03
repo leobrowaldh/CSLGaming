@@ -1,11 +1,9 @@
 ﻿@using CSLGaming.UI.Services
-@inject UIService Service;
-
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid d-flex justify-content-between align-items-center">
         <!-- Logo -->
         <a class="navbar-brand" href="#">
-            <img src="/images/image.png" alt="CSL-gaming logo" width="120" height="30">
+            <img src="/images/Logo3.png" alt="CSL-gaming logo" width="100" height="80">
         </a>
 
         <!-- Toggler -->
@@ -16,17 +14,16 @@
         <!-- Collapsible Content -->
         <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
             <!-- Menu Items -->
-            <ul class="navbar-nav mb-2 mb-lg-0">
-                <li class="nav-item">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         @CurrentChoice.ToString()
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#" @onclick="() => UpdateChoice(Choice.Game)">Game</a></li>
-                        <li><a class="dropdown-item" href="#" @onclick="() => UpdateChoice(Choice.Genere)">Genere</a></li>
-                        <li><a class="dropdown-item" href="#" @onclick="() => UpdateChoice(Choice.Category)">Category</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        @foreach (var group in Service!.CategoryLinkGroups)
+                        {
+                            <li><a class="dropdown-item" href="#" @onclick="() => {OnCategoryLinkClick(group.Id); UpdateChoice(group.Id);}">@group.Id@group.Name</a></li>
+                        }
                     </ul>
                 </li>
             </ul>
@@ -46,74 +43,79 @@
             </a>
 
             <!-- Cart Button -->
-            <a class="btn btn-primary" href="#">
+            <button type="button" class="btn btn-primary position-relative" data-bs-toggle="modal" data-bs-target="#cart">
                 <i class="bi bi-cart"></i>
-            </a>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    @Service.CartItems.Count()
+                </span>
+
+            </button>
+
         </div>
     </div>
 </nav>
 
-
+<CartComponent OnChange="OnCartChange" />
 
 
 @code {
-    @code {
-        private string? searchText;
+    [CascadingParameter(Name = "Service")] public UIService? Service { get; set; }
+    [Parameter] public EventCallback OnChange { get; set; }
 
-        public enum Choice { Category, Game, Genere }
-        public Choice CurrentChoice { get; set; } = Choice.Category;
-
-        [Parameter] public EventCallback OnChange { get; set; }
-
-        private void UpdateChoice(Choice choice)
+    public void OnCartChange()
+    {
+        if(OnChange.HasDelegate && Service is not null)
         {
-            CurrentChoice = choice;
-        }
-
-        private void UpdateSearchText(ChangeEventArgs e)
-        {
-            searchText = e.Value?.ToString();
-        }
-
-       
-
-        protected override async Task OnInitializedAsync()
-        {
-            if (Service is not null)
-            {
-                await Service.GetLinkGroup();
-                await OnChange.InvokeAsync();
-            }
-        }
-
-        private async void ChoiceSearch(UIService db)
-        {
-            if (CurrentChoice == Choice.Category && OnChange.HasDelegate && Service is not null)
-            {
-                await db.GetIdByName(searchText);
-                await db.GetLinkGroup();
-                await db.GetProductsAsync();
-                await OnChange.InvokeAsync();
-            }
-            else if (CurrentChoice == Choice.Game && OnChange.HasDelegate && Service is not null)
-            {
-                await db.GetProductsByNameAsync(searchText);
-                await OnChange.InvokeAsync();
-
-            }
-            else if (CurrentChoice == Choice.Genere && OnChange.HasDelegate && Service is not null)
-            {
-                await db.GetProductsByGenereAsync(searchText);
-                await OnChange.InvokeAsync();
-            }
-            else
-            {
-                return;
-            }
-
-            var TEST = searchText;
+            OnChange.InvokeAsync();
         }
     }
+
+    public enum Choice {Category, Game, Genere}
+    public Choice CurrentChoice { get; set; } = Choice.Category;
+
+    private void UpdateChoice(int id)
+    {
+        switch (id)
+        {
+            case 1:
+                CurrentChoice = Choice.Category;
+                break;
+            case 2:
+                CurrentChoice = Choice.Game;
+                break;
+            case 3:
+                CurrentChoice = Choice.Genere;
+                break;
+            default:
+                CurrentChoice = Choice.Category; // Default choice
+                break;
+        }
+    }
+
+    private async Task OnCategoryLinkClick(int groupId)
+    {
+        await Service.OnCategoryLinkClick(groupId);
+        // Perform any additional actions if needed
+    }
+
+    async Task OnAsideCallback(int id)
+    {
+        if (OnChange.HasDelegate && Service is not null)
+        {
+            await Service.OnCategoryLinkClick(id);
+            await OnChange.InvokeAsync();
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Service is not null)
+        {
+            await Service.GetLinkGroup();
+            await OnChange.InvokeAsync();
+        }
+    }
+
 }
 
 
