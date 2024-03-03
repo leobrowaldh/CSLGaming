@@ -1,4 +1,5 @@
 ﻿using Blazored.LocalStorage;
+using System.Xml.Linq;
 
 namespace CSLGaming.UI.Services
 {
@@ -16,34 +17,15 @@ namespace CSLGaming.UI.Services
 
         public List<LinkGroup> CategoryLinkGroups { get; private set; } =
         [
+            //new LinkGroup { Name = "Categories" }
             new LinkGroup()
             {
-            Name = "Category",
-            Id = 1,
+            Name = "Categories",
+            Id = 0,
             LinkOptions= new(){
-                new LinkOption { Id = 1, CategoryType = "Women", IsSelected = true },
-                new LinkOption { Id = 2, CategoryType = "Men", IsSelected = false },
-                new LinkOption { Id = 3, CategoryType = "Children", IsSelected = false }
-                }
-            },
-            new LinkGroup()
-            {
-            Name = "Games",
-            Id =2,
-            LinkOptions= new(){
-                new LinkOption { Id = 1, CategoryType = "Women", IsSelected = true },
-                new LinkOption { Id = 2, CategoryType = "Men", IsSelected = false },
-                new LinkOption { Id = 3, CategoryType = "Children", IsSelected = false }
-                }
-            },
-            new LinkGroup()
-            {
-            Name = "Genere",
-            Id =3,
-            LinkOptions= new(){
-                new LinkOption { Id = 1, CategoryType = "Women", IsSelected = true },
-                new LinkOption { Id = 2, CategoryType = "Men", IsSelected = false },
-                new LinkOption { Id = 3, CategoryType = "Children", IsSelected = false }
+                new LinkOption { Id = 0, CategoryType = "zero", IsSelected = true },
+                new LinkOption { Id = 1, CategoryType = "one", IsSelected = false },
+                new LinkOption { Id = 2, CategoryType = "two", IsSelected = false }
                 }
             }
         ];

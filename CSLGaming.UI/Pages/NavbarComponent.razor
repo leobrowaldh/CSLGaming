@@ -16,13 +16,35 @@
             <!-- Menu Items -->
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="width: 100px;">
+                        @{
+                            // Logic to find the selected LinkOption and set CurrentChoice accordingly
+                            var selectedLink = Service!.CategoryLinkGroups[0].LinkOptions.FirstOrDefault(l => l.IsSelected);
+                            if (selectedLink != null)
+                            {
+                                CurrentChoice = selectedLink.CategoryType;
+                            }
+                        }
                         @CurrentChoice.ToString()
                     </a>
+
                     <ul class="dropdown-menu">
                         @foreach (var group in Service!.CategoryLinkGroups)
                         {
-                            <li><a class="dropdown-item" href="#" @onclick="() => {OnCategoryLinkClick(group.Id); UpdateChoice(group.Id);}">@group.Id@group.Name</a></li>
+                            @foreach (var linkOption in group.LinkOptions)
+                            {
+                                <li>
+                                    <a class="dropdown-item @(linkOption.IsSelected ? "ps-30" : "ps-3")" href="@($"#{linkOption.Id}")" @onclick="async () => { await OnCategoryLinkClick(linkOption.Id); }">
+                                        @linkOption.CategoryType
+                                        @if (linkOption.IsSelected)
+                                        {
+                                            <i class="bi-caret-left"></i>
+                                        }
+                                    </a>
+                                </li>
+                                //if (group != Service!.CategoryLinkGroups[0]) break; //condition so the only group generating links is the first one.
+                            }
+
                         }
                     </ul>
                 </li>
@@ -55,45 +77,21 @@
 
 
 @code {
-    //[Parameter] public UIService? Service { get; set; }
-
-    public enum Choice {Category, Game, Genere}
-    public Choice CurrentChoice { get; set; } = Choice.Category;
-
-    private void UpdateChoice(int id)
-    {
-        switch (id)
-        {
-            case 1:
-                CurrentChoice = Choice.Category;
-                break;
-            case 2:
-                CurrentChoice = Choice.Game;
-                break;
-            case 3:
-                CurrentChoice = Choice.Genere;
-                break;
-            default:
-                CurrentChoice = Choice.Category; // Default choice
-                break;
-        }
-    }
+    [CascadingParameter(Name = "Service")] public UIService? Service { get; set; }
     [Parameter] public EventCallback OnChange { get; set; } // Updaterar sidan
-    [Inject]
-    public UIService Service { get; set; }
 
-    private async Task OnCategoryLinkClick(int groupId)
-    {
-        await Service.OnCategoryLinkClick(groupId);
-        // Perform any additional actions if needed
-    }
+    public string CurrentChoice { get; set; } = "Categories";
 
-    async Task OnAsideCallback(int id)
+    private async Task OnCategoryLinkClick(int id)
     {
-        if (OnChange.HasDelegate && Service is not null)
+        if (Service is not null)
         {
+            CurrentChoice = Service!.CategoryLinkGroups.SelectMany(g => g.LinkOptions).FirstOrDefault(l => l.Id == id)?.CategoryType ?? "Default";
+            //CurrentChoice = Service!.CategoryLinkGroups[0].LinkOptions.FirstOrDefault(l => l.Id == id)?.CategoryType ?? "Default";
             await Service.OnCategoryLinkClick(id);
+
             await OnChange.InvokeAsync();
+            // Perform any additional actions if needed 
         }
     }
 
