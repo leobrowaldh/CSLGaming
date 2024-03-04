@@ -42,7 +42,7 @@
                                         }
                                     </a>
                                 </li>
-                                //if (group != Service!.CategoryLinkGroups[0]) break; //condition so the only group generating links is the first one.
+                                if (group != Service!.CategoryLinkGroups[0]) break; //condition so the only group generating links is the first one.
                             }
 
                         }
@@ -84,14 +84,22 @@
     [CascadingParameter(Name = "Service")] public UIService? Service { get; set; }
     [Parameter] public EventCallback OnChange { get; set; } // Updaterar sidan
 
+    public void OnCartChange()
+    {
+        if (OnChange.HasDelegate && Service is not null)
+        {
+            OnChange.InvokeAsync();
+        }
+    }
+
     public string CurrentChoice { get; set; } = "Categories";
 
     private async Task OnCategoryLinkClick(int id)
     {
         if (Service is not null)
         {
-            CurrentChoice = Service!.CategoryLinkGroups.SelectMany(g => g.LinkOptions).FirstOrDefault(l => l.Id == id)?.CategoryType ?? "Default";
-            //CurrentChoice = Service!.CategoryLinkGroups[0].LinkOptions.FirstOrDefault(l => l.Id == id)?.CategoryType ?? "Default";
+            //CurrentChoice = Service!.CategoryLinkGroups.SelectMany(g => g.LinkOptions).FirstOrDefault(l => l.Id == id)?.CategoryType ?? "Default";
+            CurrentChoice = Service!.CategoryLinkGroups[0].LinkOptions.FirstOrDefault(l => l.Id == id)?.CategoryType ?? "Default";
             await Service.OnCategoryLinkClick(id);
 
             await OnChange.InvokeAsync();

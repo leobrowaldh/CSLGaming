@@ -1,5 +1,4 @@
-﻿
-@page "/"
+﻿@page "/"
 @inject UIService Service;
 @using CSLGaming.UI.Pages;
 @using CSLGaming.UI.Services
@@ -14,13 +13,13 @@
 
 <CascadingValue Value="Service" Name="Service">
     <NavbarComponent />
-    <div id="viewport" class="d-flex vh-100"> 
-        <AsideComponents OnChange="OnChange"/>
-        <ProductComponent OnChange="OnChange"/>
+    <div id="viewport" class="d-flex vh-100">
+        @* <AsideComponents OnChange="OnChange" /> *@
+        <ProductComponent OnChange="OnChange" />
     </div>
 </CascadingValue>
 
-@code{
+@code {
 
     //Loading local storage into Service
     protected override async Task OnParametersSetAsync()
