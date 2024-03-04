@@ -17,17 +17,17 @@ namespace CSLGaming.UI.Services
 
         public List<LinkGroup> CategoryLinkGroups { get; private set; } =
         [
-            //new LinkGroup { Name = "Categories" }
-            new LinkGroup()
-            {
-            Name = "Categories",
-            Id = 0,
-            LinkOptions= new(){
-                new LinkOption { Id = 0, CategoryType = "zero", IsSelected = true },
-                new LinkOption { Id = 1, CategoryType = "one", IsSelected = false },
-                new LinkOption { Id = 2, CategoryType = "two", IsSelected = false }
-                }
-            }
+            new LinkGroup { Name = "Categories" }
+            //new LinkGroup()
+            //{
+            //Name = "Categories",
+            //Id = 0,
+            //LinkOptions= new(){
+            //    new LinkOption { Id = 0, CategoryType = "zero", IsSelected = true },
+            //    new LinkOption { Id = 1, CategoryType = "one", IsSelected = false },
+            //    new LinkOption { Id = 2, CategoryType = "two", IsSelected = false }
+            //    }
+            //}
         ];
 
         public async Task GetLinkGroup()
@@ -35,7 +35,6 @@ namespace CSLGaming.UI.Services
             Categories = await categoryHttpClient.GetCategoriesAsync();
             CategoryLinkGroups[0].LinkOptions = mapper.Map<List<LinkOption>>(Categories);
             var linkOption = CategoryLinkGroups[0].LinkOptions.FirstOrDefault();
-            linkOption!.IsSelected = true;
         }
 
         public async Task OnCategoryLinkClick(int id)
