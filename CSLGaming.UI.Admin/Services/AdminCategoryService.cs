@@ -44,11 +44,11 @@ namespace CSLGaming.UI.Admin.Services
 
         public async Task UpdateAdminCategory(int id, CategoryPutDTO cat)
         {
-            if (CategoryToUpdate != null)
-            {
+            
+            
                 // Assuming CategoryToUpdate has been modified based on user input
-                await _catAdminClient.UpdateAdminCategory(CategoryToUpdate.Id, CategoryToUpdate); // Här uppdateras den sen.
-            }
+                await _catAdminClient.UpdateAdminCategory(id, cat); // Här uppdateras den sen.
+            
         }
     }
 }
