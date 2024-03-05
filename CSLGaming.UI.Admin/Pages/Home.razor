@@ -1,5 +1,4 @@
-﻿
-@page "/"
+﻿@page "/"
 @using AutoMapper
 @using CSLGaming.API.DTO
 @using CSLGaming.UI.Admin.Services
@@ -11,8 +10,6 @@
 
 <button type="button" class="btn btn-primary" @onclick="()=> ShowUpdate = !ShowUpdate">Update</button>
 <button type="button" class="btn btn-success" @onclick="()=> ShowAdd = !ShowAdd">Add New</button>
-
-
 
 @foreach (var category in Service.Categories)
 {
@@ -30,6 +27,9 @@
             <button type="button" class="btn btn-primary" @onclick="()=> UpdateEntity(category)">Confirm</button>
         }
 
+        <!-- Input form for deleting a category -->
+        
+
         <table class="table table-bordered">
             <thead class="thead-dark">
                 <tr>
@@ -44,6 +44,10 @@
                 </tr>
             </tbody>
         </table>
+        @if (!ShowUpdate)
+        {
+            <button type="button" class="btn btn-danger" @onclick="() => { ShowDelete = !ShowDelete; SelectedCategoryId = category.Id; }">Delete</button>
+        }
     </div>
 }
 
@@ -74,12 +78,42 @@
     </div>
 }
 
+<!-- Modal for deleting a category -->
+@if (ShowDelete)
+{
+    <div class="modal show" tabindex="-1" role="dialog" style="display: block;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Delete Category</h5>
+                    <button type="button" class="close" @onclick="()=> ShowDelete = !ShowDelete">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete this category?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" @onclick="()=> DeleteEntity()">Confirm Delete</button>
+                    <button type="button" class="btn btn-secondary" @onclick="()=> ShowDelete = !ShowDelete">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
 @code {
 
     string errorMessage;
     bool ShowUpdate = false;
     bool ShowAdd = false;
+    bool ShowDelete = false;
+    int SelectedCategoryId;
     string? entityName;
+
+    [Parameter] public EventCallback OnChange { get; set; }
+
+    
 
     public async Task UpdateEntity(CategoryGetDTO category)
     {
@@ -90,6 +124,8 @@
             await Service.UpdateAdminCategory(mappedC.Id, mappedC);
         }
         ShowUpdate = false;
+
+        await UpdatePage();
     }
 
     public async Task AddEntity(string name)
@@ -99,6 +135,17 @@
             await Service.AddAdminCategory(name);
         }
         ShowAdd = false;
+        await UpdatePage();
+    }
+
+    public async Task DeleteEntity()
+    {
+        if (Service is not null)
+        {
+            await Service.DeleteAdminCategory(SelectedCategoryId);
+        }
+        ShowDelete = false;
+        await UpdatePage();
     }
 
     protected override async Task OnInitializedAsync()
@@ -108,5 +155,12 @@
             await Service.AdminGetAllCategories();
             ShowUpdate = false;
         }
+
+        
+    }
+
+    public async Task UpdatePage()
+    {
+        await OnChange.InvokeAsync();
     }
 }

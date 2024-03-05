@@ -32,8 +32,14 @@
 
     private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
+    [Parameter] public EventCallback Onchange { get; set; }
+
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
     }
+
+    
+
+    
 }
