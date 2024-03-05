@@ -11,6 +11,8 @@ public class CategoryHttpClient
     private readonly HttpClient _httpClient;
     string _baseAdress = "https://localhost:7042/api";
 
+
+
     public CategoryHttpClient(HttpClient httpClient)
     {
         _httpClient = httpClient;
