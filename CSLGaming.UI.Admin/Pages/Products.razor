@@ -6,21 +6,17 @@
 
 <h1>Products</h1>
 
-<ProductComponentAdmin Service="Service"/>
+<ProductComponentAdmin OnChange="Onchange" Service="Service"/>
 
 
 
 
 
 @code {
-    protected override async Task OnInitializedAsync()
+
+
+    public void Onchange()
     {
-        if (Service is not null)
-        {
-            await Service.GetAllProducts();
-            
-        }
-
-
+        
     }
 }

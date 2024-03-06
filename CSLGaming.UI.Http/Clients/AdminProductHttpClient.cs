@@ -40,5 +40,21 @@ namespace CSLGaming.UI.Http.Clients
            
         }
 
+        public async Task DeleteProductAdmin(int id)
+        {
+            try
+            {
+                string deleteUrl = $"/api/products/{id}";
+
+                using HttpResponseMessage response = await _httpClient.DeleteAsync(deleteUrl);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+        }   
+
     }
 }

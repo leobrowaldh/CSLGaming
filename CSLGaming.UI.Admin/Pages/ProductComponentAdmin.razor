@@ -18,13 +18,15 @@
                     @foreach (var category in product.Categories!)
                     {
                         <span>@category.CategoryType</span>
-                        if (!category.Equals(product.Categories.Last()))
+                        @if (!category.Equals(product.Categories.Last()))
                         {
                             <span>, </span>
                         }
                     }
                 </td>
-
+                <td>
+                    <button class="btn btn-danger" @onclick="() => DeleteProduct(product.Id)">Delete</button>
+                </td>
             </tr>
         </tbody>
     </table>
@@ -37,5 +39,29 @@
 @code {
 
     [Parameter] public AdminProductService? Service { get; set; }
+
+    [Parameter] public EventCallback OnChange { get; set; }
+
+    public async Task DeleteProduct(int id)
+    {
+        if (Service is not null && OnChange.HasDelegate)
+        {
+            await Service.DeleteProd(id);
+            await OnChange.InvokeAsync();
+        }
+
+
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Service is not null)
+        {
+            await Service.GetAllProducts();
+
+        }
+
+
+    }
 
 }

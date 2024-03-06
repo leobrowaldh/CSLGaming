@@ -15,8 +15,8 @@ namespace CSLGaming.UI.Admin.Services
         }
 
         public async Task GetAllProducts() => Products = await _httpClient.GetProducts();
-        
-        
+
+        public async Task DeleteProd(int id) => await _httpClient.DeleteProductAdmin(id); 
 
     }
 }
