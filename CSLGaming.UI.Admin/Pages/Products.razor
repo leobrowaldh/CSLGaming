@@ -1,0 +1,26 @@
+﻿@page "/counter"
+@using CSLGaming.UI.Admin.Services
+@inject AdminProductService Service;
+
+<PageTitle>Counter</PageTitle>
+
+<h1>Products</h1>
+
+<ProductComponentAdmin Service="Service"/>
+
+
+
+
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        if (Service is not null)
+        {
+            await Service.GetAllProducts();
+            
+        }
+
+
+    }
+}
