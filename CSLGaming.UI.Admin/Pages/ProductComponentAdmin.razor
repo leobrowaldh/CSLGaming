@@ -177,21 +177,23 @@
 
     public bool ShowConfigurations { get; set; } = false;
 
+
     public async Task DeleteProduct(int id)
     {
         if (Service is not null && OnChange.HasDelegate)
         {
             await Service.DeleteProd(id);
+            await Service.GetAllProducts();
             await OnChange.InvokeAsync();
         }
-
-
     }
 
     public async Task AddProduct()
     {
         await Service.Addproduct(ProductToAdd);
         ShowAddProductModal = false;
+        await Service.GetAllProducts();
+        await OnChange.InvokeAsync();
     }
 
 
@@ -232,18 +234,20 @@
         if (Service is not null)
         {
             await Service.UpdateConnections(productId, genereId, categoryId);
+            await Service.GetAllProducts();
+            await OnChange.InvokeAsync();
         }
         
         ShowCategoryDropdown = false;
     }
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnParametersSetAsync()
     {
         if (Service is not null)
         {
-            await Service.GetAllProducts();
             await Service.GetGeneres();
             await Service.GetAgeRestrictions();
+            await Service.GetAllProducts();
         }
 
 

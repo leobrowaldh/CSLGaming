@@ -111,9 +111,6 @@
     int SelectedCategoryId;
     string? entityName;
 
-    [Parameter] public EventCallback OnChange { get; set; }
-
-    
 
     public async Task UpdateEntity(CategoryGetDTO category)
     {
@@ -124,8 +121,6 @@
             await Service.UpdateAdminCategory(mappedC.Id, mappedC);
         }
         ShowUpdate = false;
-
-        await UpdatePage();
     }
 
     public async Task AddEntity(string name)
@@ -135,7 +130,6 @@
             await Service.AddAdminCategory(name);
         }
         ShowAdd = false;
-        await UpdatePage();
     }
 
     public async Task DeleteEntity()
@@ -145,7 +139,6 @@
             await Service.DeleteAdminCategory(SelectedCategoryId);
         }
         ShowDelete = false;
-        await UpdatePage();
     }
 
     protected override async Task OnInitializedAsync()
@@ -155,12 +148,10 @@
             await Service.AdminGetAllCategories();
             ShowUpdate = false;
         }
-
-        
     }
 
-    public async Task UpdatePage()
+    void OnChange()
     {
-        await OnChange.InvokeAsync();
+        //update website
     }
 }
