@@ -139,7 +139,7 @@ namespace CSLGaming.UI.Http.Clients
         {
             try
             {
-                string geturl = "/api/Generes";
+                string geturl = "/api/AgeRestrictions";
 
                 using HttpResponseMessage response = await _httpClient.GetAsync(geturl);
                 response.EnsureSuccessStatusCode();
