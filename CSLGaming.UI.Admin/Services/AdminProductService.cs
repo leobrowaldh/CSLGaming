@@ -45,23 +45,28 @@ namespace CSLGaming.UI.Admin.Services
 
 
         
-        public async Task GetEtc()
+        public async Task GetGeneres()
         {
             try
             {
                 Generes = await _httpClient.GetGen();
-
-                //AgeRestrictions = await _httpClient.GetAge();
-
-                
             }
             catch (Exception)
             {
-
                 throw;
             }
-            
+        }
 
+        public async Task GetAgeRestrictions()
+        {
+            try
+            {
+                AgeRestrictions = await _httpClient.GetAge();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
 

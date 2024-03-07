@@ -8,7 +8,8 @@
         public int ReleaseYear { get; set; }
         public string? PictureUrl { get; set; }
         public string Description { get; set; } = string.Empty;
-    }
+		public int? AgeRestrictionId { get; set; }
+	}
 
     public class ProductPutDTO : ProductPostDTO
     {
