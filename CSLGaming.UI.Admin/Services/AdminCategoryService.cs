@@ -7,8 +7,8 @@ namespace CSLGaming.UI.Admin.Services
     {
         private readonly AdminCategoryHttpClient _catAdminClient;
 
-        public List<CategoryGetDTO> Categories { get; set; }
-        public CategoryPutDTO CategoryToUpdate { get; set; }
+        public List<CategoryGetDTO>? Categories { get; set; }
+        public CategoryPutDTO? CategoryToUpdate { get; set; }
 
         string errorMessage;
 

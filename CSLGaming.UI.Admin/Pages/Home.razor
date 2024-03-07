@@ -10,47 +10,50 @@
 
 <button type="button" class="btn btn-primary" @onclick="()=> ShowUpdate = !ShowUpdate">Update</button>
 <button type="button" class="btn btn-success" @onclick="()=> ShowAdd = !ShowAdd">Add New</button>
-
-@foreach (var category in Service.Categories)
+@if (Service.Categories != null)
 {
-    <div class="container mt-4">
-        <h2>@category.CategoryType</h2>
+    
 
-        <!-- Input form for updating values -->
-        @if (ShowUpdate)
-        {
-            <div class="form-group">
-                <label for="newCategoryType_@category.Id">New Category Type:</label>
-                <input type="text" class="form-control" id="newCategoryType_@category.Id" @bind="category.CategoryType" />
-            </div>
+    @foreach (var category in Service.Categories!)
+    {
+        <div class="container mt-4">
+            <h2>@category.CategoryType!</h2>
 
-            <button type="button" class="btn btn-primary" @onclick="()=> UpdateEntity(category)">Confirm</button>
-        }
+            <!-- Input form for updating values -->
+            @if (ShowUpdate)
+            {
+                <div class="form-group">
+                    <label for="newCategoryType_@category.Id">New Category Type:</label>
+                    <input type="text" class="form-control" id="newCategoryType_@category.Id" @bind="category.CategoryType" />
+                </div>
 
-        <!-- Input form for deleting a category -->
+                <button type="button" class="btn btn-primary" @onclick="()=> UpdateEntity(category)">Confirm</button>
+            }
+
+            <!-- Input form for deleting a category -->
         
 
-        <table class="table table-bordered">
-            <thead class="thead-dark">
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>@category.Id</td>
-                    <td>@category.CategoryType</td>
-                </tr>
-            </tbody>
-        </table>
-        @if (!ShowUpdate)
-        {
-            <button type="button" class="btn btn-danger" @onclick="() => { ShowDelete = !ShowDelete; SelectedCategoryId = category.Id; }">Delete</button>
-        }
-    </div>
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>@category.Id</td>
+                        <td>@category.CategoryType</td>
+                    </tr>
+                </tbody>
+            </table>
+            @if (!ShowUpdate)
+            {
+                <button type="button" class="btn btn-danger" @onclick="() => { ShowDelete = !ShowDelete; SelectedCategoryId = category.Id; }">Delete</button>
+            }
+        </div>
+    }
 }
-
 <!-- Modal for adding a new category -->
 @if (ShowAdd)
 {

@@ -5,50 +5,53 @@
 <button class="btn btn-danger" @onclick="ShowAddProductModals">Add Product</button>
 
 
-
-@foreach (var product in Service!.Products)
+@if (Service is not null && Service.Products != null)
 {
-    <table class="table table-bordered">
-        <thead class="thead-dark">
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Categories</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>@product.Id</td>
-                <td>@product.Name</td>
-                <td>
-                    @foreach (var category in product.Categories!)
-                    {
-                        <span>@category.CategoryType</span>
-                        @if (!category.Equals(product.Categories.Last()))
-                        {
-                            <span>, </span>
-                        }
-                    }
-                </td>
-                <td>
-                    <button class="btn btn-danger" @onclick="() => DeleteProduct(product.Id)">Delete</button>
-                    <button class="btn btn-primary" @onclick="() => ConfigureProperties(product.Id)">Add Connections</button>
-                    
-                </td>
-            </tr>
-            @if (ShowPictures)
-            {
+    
+
+    @foreach (var product in Service.Products)
+    {
+        <table class="table table-bordered">
+            <thead class="thead-dark">
                 <tr>
-                    <td colspan="4">
-                        
-                        <img src="@product.PictureUrl" alt="@product.Name" class="img-thumbnail" />
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Categories</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@product.Id</td>
+                    <td>@product.Name</td>
+                    <td>
+                        @foreach (var category in product.Categories!)
+                        {
+                            <span>@category.CategoryType</span>
+                            @if (!category.Equals(product.Categories.Last()))
+                            {
+                                <span>, </span>
+                            }
+                        }
+                    </td>
+                    <td>
+                        <button class="btn btn-danger" @onclick="() => DeleteProduct(product.Id)">Delete</button>
+                        <button class="btn btn-primary" @onclick="() => ConfigureProperties(product.Id)">Add Connections</button>
+                    
                     </td>
                 </tr>
-            }
-        </tbody>
-    </table>
+                @if (ShowPictures)
+                {
+                    <tr>
+                        <td colspan="4">
+                        
+                            <img src="@product.PictureUrl" alt="@product.Name" class="img-thumbnail" />
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
 }
-
 <!-- Modal for adding a new product -->
 <div class="modal" tabindex="-1" role="dialog" style="display: @(ShowAddProductModal ? "block" : "none")">
     <div class="modal-dialog" role="document">
@@ -94,10 +97,14 @@
                 <div class="form-group">
                     <label for="ageRestriction">Age Restriction:</label>
                     <select class="form-control" id="ageRestriction" @bind="ProductToAdd.AgeRestrictionId">
-                        @foreach (var ageRestriction in Service.AgeRestrictions)
+                        @if (Service is not null && Service.AgeRestrictions is not null)
                         {
-                            <option value="@ageRestriction.Id">@ageRestriction.Age</option>
+                            @foreach (var ageRestriction in Service.AgeRestrictions)
+                            {
+                                <option value="@ageRestriction.Id">@ageRestriction.Age</option>
+                            }
                         }
+                        
                     </select>
                 </div>
 
@@ -124,20 +131,28 @@
                 <div class="form-group">
                     <label for="genreDropdown">Select Genre:</label>
                     <select class="form-control" id="genreDropdown" @bind="ChosenGenereId">
-                        @foreach (var genre in Service!.Generes)
+                        @if (Service is not null && Service.Generes is not null)
                         {
-                            <option value="@genre.Id">@genre.GenereType</option>
+                            @foreach (var genre in Service!.Generes)
+                            {
+                                <option value="@genre.Id">@genre.GenereType</option>
+                            }
                         }
+                        
                     </select>
                 </div>
 
                 <div class="form-group">
                     <label for="categoryDropdown">Select Category:</label>
                     <select class="form-control" id="categoryDropdown" @bind="ChosenCatageoryId">
-                        @foreach (var category in Service!.Categories)
+                        @if (Service != null && Service.Categories != null)
                         {
-                            <option value="@category.Id">@category.CategoryType</option>
+                            @foreach (var category in Service!.Categories)
+                            {
+                                <option value="@category.Id">@category.CategoryType</option>
+                            }
                         }
+                        
                     </select>
                 </div>
 
