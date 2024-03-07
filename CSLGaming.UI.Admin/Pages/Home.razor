@@ -119,6 +119,7 @@
         if (Service is not null)
         {
             await Service.UpdateAdminCategory(mappedC.Id, mappedC);
+            await Service.AdminGetAllCategories();
         }
         ShowUpdate = false;
     }
@@ -128,6 +129,7 @@
         if (Service is not null)
         {
             await Service.AddAdminCategory(name);
+            await Service.AdminGetAllCategories();
         }
         ShowAdd = false;
     }
@@ -137,6 +139,7 @@
         if (Service is not null)
         {
             await Service.DeleteAdminCategory(SelectedCategoryId);
+            await Service.AdminGetAllCategories();
         }
         ShowDelete = false;
     }
