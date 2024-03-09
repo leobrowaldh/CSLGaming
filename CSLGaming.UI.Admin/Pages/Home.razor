@@ -57,7 +57,7 @@
                     </style>
                     <div class="form-group">
                         <label for="newCategoryType_@category.Id">New Category Type:</label>
-                        <input type="text" class="form-control" id="newCategoryType_@category.Id" @bind="category.CategoryType" />
+                        <input type="text" class="form-control bg-dark text-white" id="newCategoryType_@category.Id" @bind="category.CategoryType" />
                     </div>
 
                     <button type="button" class="btn btn-primary" style="margin-top: 20px; margin-bottom: 20px;" @onclick="()=> UpdateEntity(category)">Confirm</button>
