@@ -1,0 +1,26 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Name": "CSLGaming.API.Category\\CSLGaming.API.Category.csproj",
+        "Action": "Start",
+        "DebugTarget": ""
+      },
+      {
+        "Name": "CSLGaming.API.Product\\CSLGaming.API.Product.csproj",
+        "Action": "Start",
+        "DebugTarget": ""
+      },
+      {
+        "Name": "CSLGaming.UI\\CSLGaming.UI.csproj",
+        "Action": "Start",
+        "DebugTarget": ""
+      },
+      {
+        "Name": "CSLGaming.UI.Admin\\CSLGaming.UI.Admin.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

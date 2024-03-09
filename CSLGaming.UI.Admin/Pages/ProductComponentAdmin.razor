@@ -1,102 +1,120 @@
 ﻿@using CSLGaming.API.DTO
 @using CSLGaming.UI.Admin.Services
 
-<button class="btn btn-danger" @onclick="TogglePictures">Show/Hide Pictures</button>
-<button class="btn btn-danger" @onclick="ShowAddProductModals">Add Product</button>
+<PageTitle>Products</PageTitle>
 
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <!-- Center the content horizontally -->
+        <div class="col-md-6 text-center" style="margin-bottom: 15px;">
+            <!-- Adjust column width and text alignment -->
+            <button class="btn btn-danger" @onclick="TogglePictures">Show/Hide Pictures</button>
+            <button class="btn btn-danger" @onclick="ShowAddProductModals">Add Product</button>
+        </div>
+    </div>
 
-@if (Service is not null && Service.Products != null)
-{
-    
+    <h1 style="color: white;">Products</h1>
 
-    @foreach (var product in Service.Products)
+    @if (Service is not null && Service.Products != null)
     {
-        <table class="table table-bordered">
-            <thead class="thead-dark">
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Categories</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>@product.Id</td>
-                    <td>@product.Name</td>
-                    <td>
-                        @foreach (var category in product.Categories!)
-                        {
-                            <span>@category.CategoryType</span>
-                            @if (!category.Equals(product.Categories.Last()))
-                            {
-                                <span>, </span>
-                            }
-                        }
-                    </td>
-                    <td>
-                        <button class="btn btn-danger" @onclick="() => DeleteProduct(product.Id)">Delete</button>
-                        <button class="btn btn-primary" @onclick="() => ConfigureProperties(product.Id)">Add Connections</button>
-                    
-                    </td>
-                </tr>
-                @if (ShowPictures)
-                {
+
+
+        @foreach (var product in Service.Products)
+        {
+            <table class="table table-dark table-bordered">
+                <thead class="thead-dark">
                     <tr>
-                        <td colspan="4">
-                        
-                            <img src="@product.PictureUrl" alt="@product.Name" class="img-thumbnail" />
-                        </td>
+                        <th style="width: 100px; color: white;">ID</th>
+                        <th style="width: 200px; color: white;">Name</th>
+                        <th style="width: 200px; color: white;">Categories</th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: white;">@product.Id</td>
+                        <td style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: white;">@product.Name</td>
+                        <td>
+                            @foreach (var category in product.Categories!)
+                            {
+                                <span style="width: 100px; color: white;">@category.CategoryType</span>
+                                @if (!category.Equals(product.Categories.Last()))
+                                {
+                                    <span>, </span>
+                                }
+                            }
+                        </td>
+                        @* <td>
+                <button class="btn btn-danger" @onclick="() => DeleteProduct(product.Id)">Delete</button>
+                <button class="btn btn-primary" @onclick="() => ConfigureProperties(product.Id)">Add Connections</button>
+
+                </td> *@
+                    </tr>
+                    @if (ShowPictures)
+                    {
+                        <tr>
+                            <td colspan="4">
+
+                                <img src="@product.PictureUrl" alt="@product.Name" class="img-thumbnail" />
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <td>
+                <div style="margin-bottom: 50px;">
+                    <button type="button" class="btn btn-danger" @onclick="() => { ShowDelete = !ShowDelete; SelectProductIdDelete = product.Id;}">Delete</button>
+                    @* <button class="btn btn-danger" style="margin-top: 10px; margin-bottom: 20px;" @onclick="() => DeleteProduct(product.Id)">Delete</button> *@
+                    <button class="btn btn-primary" @onclick="() => ConfigureProperties(product.Id)">Add Connections</button>
+                </div>
+            </td>
+        }
     }
-}
+</div>
 <!-- Modal for adding a new product -->
 <div class="modal" tabindex="-1" role="dialog" style="display: @(ShowAddProductModal ? "block" : "none")">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
+        <div class="modal-content bg-dark" style="color: white">
             <div class="modal-header">
                 <h5 class="modal-title">Add New Product</h5>
-                <button type="button" class="close" @onclick="CloseAddProductModal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                @* <button type="button" class="close" @onclick="CloseAddProductModal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button> *@
             </div>
             <div class="modal-body">
                 <!-- Input fields for each property of ProductPostDTO -->
                 <div class="form-group">
                     <label for="productName">Product Name:</label>
-                    <input type="text" class="form-control" id="productName" @bind="ProductToAdd.Name" />
+                    <input type="text" class="form-control bg-dark text-white" id="productName" @bind="ProductToAdd.Name" />
                 </div>
 
                 <div class="form-group">
                     <label for="productPrice">Product Price:</label>
-                    <input type="number" class="form-control" id="productPrice" @bind="ProductToAdd.Price" />
+                    <input type="number" class="form-control bg-dark text-white" id="productPrice" @bind="ProductToAdd.Price" />
                 </div>
 
                 <div class="form-group">
                     <label for="productRating">Product Rating:</label>
-                    <input type="number" class="form-control" id="productRating" @bind="ProductToAdd.Rating" />
+                    <input type="number" class="form-control bg-dark text-white" id="productRating" @bind="ProductToAdd.Rating" />
                 </div>
 
                 <div class="form-group">
                     <label for="productReleaseYear">Product Releaseyear:</label>
-                    <input type="number" class="form-control" id="productReleaseYear" @bind="ProductToAdd.ReleaseYear" />
+                    <input type="number" class="form-control bg-dark text-white" id="productReleaseYear" @bind="ProductToAdd.ReleaseYear" />
                 </div>
 
                 <div class="form-group">
                     <label for="productPicture">Product Picture:</label>
-                    <input type="text" class="form-control" id="productPicture" @bind="ProductToAdd.PictureUrl" />
+                    <input type="text" class="form-control bg-dark text-white" id="productPicture" @bind="ProductToAdd.PictureUrl" />
                 </div>
 
                 <div class="form-group">
                     <label for="productDescription">Product Description:</label>
-                    <input type="text" class="form-control" id="productDescription" @bind="ProductToAdd.Description" />
+                    <input type="text" class="form-control bg-dark text-white" id="productDescription" @bind="ProductToAdd.Description" />
                 </div>
 
                 <div class="form-group">
                     <label for="ageRestriction">Age Restriction:</label>
-                    <select class="form-control" id="ageRestriction" @bind="ProductToAdd.AgeRestrictionId">
+                    <select class="form-control bg-dark text-white" id="ageRestriction" @bind="ProductToAdd.AgeRestrictionId">
                         @if (Service is not null && Service.AgeRestrictions is not null)
                         {
                             @foreach (var ageRestriction in Service.AgeRestrictions)
@@ -104,13 +122,14 @@
                                 <option value="@ageRestriction.Id">@ageRestriction.Age</option>
                             }
                         }
-                        
+
                     </select>
                 </div>
 
-
-
-                <button class="btn btn-primary" @onclick="AddProduct">Add Product</button>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" @onclick="AddProduct">Add Product</button>
+                    <button type="button" class="btn btn-secondary" @onclick="()=> ShowAddProductModal = !ShowAddProductModal">Cancel</button>
+                </div>
             </div>
         </div>
     </div>
@@ -119,18 +138,18 @@
 <!-- Modal for adding connections -->
 <div class="modal" tabindex="-1" role="dialog" style="display: @(ShowCategoryDropdown ? "block" : "none")">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
+        <div class="modal-content bg-dark" style="color: white">
             <div class="modal-header">
                 <h5 class="modal-title">Add Connections</h5>
-                <button type="button" class="close" @onclick="CloseCategoryDropdown" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                @* <button type="button" class="close" @onclick="CloseCategoryDropdown" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button> *@
             </div>
             <div class="modal-body">
                 <!-- Dropdowns for selecting categories and genres -->
                 <div class="form-group">
                     <label for="genreDropdown">Select Genre:</label>
-                    <select class="form-control" id="genreDropdown" @bind="ChosenGenereId">
+                    <select class="form-control bg-dark text-white" id="genreDropdown" @bind="ChosenGenereId">
                         @if (Service is not null && Service.Generes is not null)
                         {
                             @foreach (var genre in Service!.Generes)
@@ -138,13 +157,13 @@
                                 <option value="@genre.Id">@genre.GenereType</option>
                             }
                         }
-                        
+
                     </select>
                 </div>
 
                 <div class="form-group">
                     <label for="categoryDropdown">Select Category:</label>
-                    <select class="form-control" id="categoryDropdown" @bind="ChosenCatageoryId">
+                    <select class="form-control bg-dark text-white" id="categoryDropdown" @bind="ChosenCatageoryId">
                         @if (Service != null && Service.Categories != null)
                         {
                             @foreach (var category in Service!.Categories)
@@ -152,17 +171,45 @@
                                 <option value="@category.Id">@category.CategoryType</option>
                             }
                         }
-                        
+
                     </select>
                 </div>
 
-                <button class="btn btn-primary" @onclick="() => AddConnections(SelectedProductId, ChosenGenereId, ChosenCatageoryId)">Add Connections</button>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" @onclick="() => AddConnections(SelectedProductId, ChosenGenereId, ChosenCatageoryId)">Add Connections</button>
+                    <button type="button" class="btn btn-secondary" @onclick="()=> ShowCategoryDropdown = !ShowCategoryDropdown">Cancel</button>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-
+<!-- Modal for deleting a product -->
+@if (ShowDelete)
+{
+    <div class="modal show" tabindex="-1" role="dialog" style="display: block;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content bg-dark" style="color: white">
+                <div class="modal-header">
+                    <h5 class="modal-title">Delete Category</h5>
+                    @* <button type="button" class="close" @onclick="()=> ShowDelete = !ShowDelete">
+                <span aria-hidden="true">&times;</span>
+                </button> *@
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete this product?</p>
+                </div>
+                <div class="modal-footer">
+                    @if (SelectedProductId != null)
+                    {
+                        <button type="button" class="btn btn-danger" @onclick="()=> DeleteProduct(SelectProductIdDelete)">Confirm Delete</button>
+                    }
+                    <button type="button" class="btn btn-secondary" @onclick="()=> ShowDelete = !ShowDelete">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 
 
 
@@ -192,6 +239,10 @@
 
     public bool ShowConfigurations { get; set; } = false;
 
+    bool ShowDelete = false;
+
+    public int SelectProductIdDelete;
+
 
     public async Task DeleteProduct(int id)
     {
@@ -201,6 +252,7 @@
             await Service.GetAllProducts();
             await OnChange.InvokeAsync();
         }
+        ShowDelete = false;
     }
 
     public async Task AddProduct()
@@ -252,7 +304,7 @@
             await Service.GetAllProducts();
             await OnChange.InvokeAsync();
         }
-        
+
         ShowCategoryDropdown = false;
     }
 
