@@ -1,8 +1,8 @@
 ﻿@using CSLGaming.UI.Services
+@inject NavigationManager NavigationManager
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid d-flex justify-content-between align-items-center">
-        <!-- Logo -->
-        <a class="navbar-brand" href="/">
+        <a class="navbar-brand" href="/" @onclick="ReloadPage">
             <img src="/images/Logo3.png" alt="CSL-gaming logo" width="100" height="80">
         </a>
 
@@ -34,7 +34,7 @@
                             @foreach (var linkOption in group.LinkOptions)
                             {
                                 <li>
-                                    <a class="dropdown-item @(linkOption.IsSelected ? "ps-30" : "ps-3")" href="@($"#{linkOption.Id}")" @onclick="async () => { await OnCategoryLinkClick(linkOption.Id); }">
+                                    <a class="dropdown-item @(linkOption.IsSelected ? "ps-30" : "ps-3")" href="@($"/")" @onclick="async () => { await OnCategoryLinkClick(linkOption.Id); }">
                                         @linkOption.CategoryType
                                         @if (linkOption.IsSelected)
                                         {
@@ -113,6 +113,11 @@
             await Service.GetLinkGroup();
             await OnChange.InvokeAsync();
         }
+    }
+
+    private void ReloadPage()
+    {
+        NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
     }
 }
 

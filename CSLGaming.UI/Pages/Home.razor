@@ -2,22 +2,29 @@
 @inject UIService Service;
 @using CSLGaming.UI.Pages;
 @using CSLGaming.UI.Services
-<!--
-    <CarouselComponent />
-    <CardListComponent />
-
--->
-
 
 
 
 <CascadingValue Value="Service" Name="Service">
-    <NavbarComponent OnChange="OnChange"/>
-    <div id="viewport" class="d-flex vh-100">
-        @* <AsideComponents OnChange="OnChange" /> *@
-        <ProductComponent OnChange="OnChange" />
+
+    <NavbarComponent OnChange="OnChange" />
+
+    <div id="viewport" class="d-flex vh-100" style="margin-top: 20px">
+        @if (Service.CurrentCategoryId != 0) // Render ProductComponent only if a link is selected
+        {
+            <ProductComponent OnChange="OnChange" />
+        }
+        else // Render CarouselComponent and CardListComponent if no link is selected
+        {
+            <div>
+                <CarouselComponent />
+                <CardListComponent />
+            </div>
+        }
     </div>
+
 </CascadingValue>
+
 
 @code {
 
