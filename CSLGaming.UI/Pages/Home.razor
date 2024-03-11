@@ -3,13 +3,23 @@
 @using CSLGaming.UI.Pages;
 @using CSLGaming.UI.Services
 
+<style>
+    /* CSS for dark background */
+    .dark-background {
+        background-color: #1D1F20; /* Adjust the color code to your preferred shade of dark */
+        color: #fff; /* Set text color to white or another color that contrasts well with the dark background */
+        margin: 0; /* Reset margin to zero */
+        padding: 20px; /* Add padding to compensate for removed margin */
+    }
+</style>
+
 
 
 <CascadingValue Value="Service" Name="Service">
 
     <NavbarComponent OnChange="OnChange" />
 
-    <div id="viewport" class="d-flex vh-100" style="margin-top: 20px">
+    <div id="viewport" class="d-flex vh-100 dark-background">
         @if (Service.CurrentCategoryId != 0) // Render ProductComponent only if a link is selected
         {
             <ProductComponent OnChange="OnChange" />

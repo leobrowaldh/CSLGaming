@@ -1,6 +1,6 @@
 ﻿@using CSLGaming.UI.Services
 @inject NavigationManager NavigationManager
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg">
     <div class="container-fluid d-flex justify-content-between align-items-center">
         <a class="navbar-brand" href="/" @onclick="ReloadPage">
             <img src="/images/Logo3.png" alt="CSL-gaming logo" width="100" height="80">
@@ -16,7 +16,7 @@
             <!-- Menu Items -->
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="width: 100px;">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="width: 100px; color: white;">
                         @{
                             // Logic to find the selected LinkOption and set CurrentChoice accordingly
                             var selectedLink = Service!.CategoryLinkGroups[0].LinkOptions.FirstOrDefault(l => l.IsSelected);
@@ -28,13 +28,18 @@
                         @CurrentChoice.ToString()
                     </a>
 
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu bg-dark">
+                        <style>
+                            .dropdown-item.text-white:hover {
+                                background-color: grey;
+                            }
+                        </style>
                         @foreach (var group in Service!.CategoryLinkGroups)
                         {
                             @foreach (var linkOption in group.LinkOptions)
                             {
                                 <li>
-                                    <a class="dropdown-item @(linkOption.IsSelected ? "ps-30" : "ps-3")" href="@($"/")" @onclick="async () => { await OnCategoryLinkClick(linkOption.Id); }">
+                                    <a class="dropdown-item @(linkOption.IsSelected ? "ps-30" : "ps-3") text-white" href="@($"/")" @onclick="async () => { await OnCategoryLinkClick(linkOption.Id); }">
                                         @linkOption.CategoryType
                                         @if (linkOption.IsSelected)
                                         {
@@ -51,7 +56,13 @@
 
             <!-- Search Form -->
             <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <input class="form-control me-2 bg-dark text-white" type="search" placeholder="Search" aria-label="Search" style="color: white;">
+                <style>
+                    .form-control::placeholder {
+                        color: white;
+                        opacity: 1;
+                    }
+                </style>
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
         </div>
@@ -76,8 +87,19 @@
     </div>
 </nav>
 
+
 <CartComponent OnChange="OnCartChange" />
 
+<div class="blue-margin">
+    <style>
+        /* CSS for thin blue margin */
+        .blue-margin {
+            height: 1px; /* Adjust the height of the margin as needed */
+            background-color: blue; /* Adjust the color of the margin as needed */
+            width: 100%; /* Make the margin span the entire width of the page */
+        }
+    </style>
+</div>
 
 @code {
     [CascadingParameter(Name = "Service")] public UIService? Service { get; set; }
@@ -115,9 +137,12 @@
         }
     }
 
-    private void ReloadPage()
+    private async void ReloadPage()
     {
-        NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
+        Service.CurrentCategoryId = 0;
+        CurrentChoice = "Categories";
+        await OnChange.InvokeAsync();
+        //NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
     }
 }
 

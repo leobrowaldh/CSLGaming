@@ -1,43 +1,44 @@
 ﻿@inject IMapper mapper;
 
 <section>
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
-        @foreach (var product in Service!.Products)
-        {
-            <div class="col mb-4">
-                <div class="card h-100">
-                    <img src="@product.PictureUrl" class="card-img-top mx-auto my-auto" alt="@product.Name" style="width: 150px; height: 100px;">
-                    <div class="card-body">
-                        <h5 class="card-title">@product.Name</h5>
-                        @foreach (var paragraph in product.Description.Split(new[] { "</p>", "<p>" }, StringSplitOptions.RemoveEmptyEntries))
-                        {
-                            <p class="card-text">@paragraph.Truncate(50)</p>
-                        }
-                        <h6 class="card-price">@product.Price Kr</h6>
-                    </div>
-                    <div class="card-footer">
-                        <div class="card-generes">
-                            @foreach (var genre in product.Generes!)
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
+            @foreach (var product in Service!.Products)
+            {
+                <div class="col mb-4">
+                <div class="card h-100 bg-dark text-white" style="border: 2px solid black;">
+                        <img src="@product.PictureUrl" class="card-img-top mx-auto my-auto mt-4" alt="@product.Name" style="width: 150px; height: 100px;">
+                        <div class="card-body">
+                            <h5 class="card-title">@product.Name</h5>
+                            @foreach (var paragraph in product.Description.Split(new[] { "</p>", "<p>" }, StringSplitOptions.RemoveEmptyEntries))
                             {
-                                <span class="badge bg-secondary mr-3" title="@genre.GenereType">@genre.GenereType</span>
+                                <p class="card-text">@paragraph.Truncate(50)</p>
                             }
+                            <h6 class="card-price">@product.Price Kr</h6>
                         </div>
-                        <div>
-                            <span class="badge bg-success">Age rating: @product.AgeRestriction!.Age</span>
-                        </div>
-                        <p class="card-release font-weight-bold">Release Year: @product.ReleaseYear</p>
-                        <div class="d-flex align-items-center mb-3">
-                            <div class="star-rating">
-                                <span class="bi bi-star-fill text-warning"></span>
+                        <div class="card-footer">
+                            <div class="card-generes">
+                                @foreach (var genre in product.Generes!)
+                                {
+                                    <span class="badge bg-secondary mr-3" title="@genre.GenereType">@genre.GenereType</span>
+                                }
                             </div>
-                            <span class="ml-2">@product.Rating</span>
-                            <button class="btn btn-sm btn-success ml-3 my-custom-margin" @onclick="() => AddToCart(product)"><i class="bi-cart"></i></button>
+                            <div>
+                                <span class="badge bg-success">Age rating: @product.AgeRestriction!.Age</span>
+                            </div>
+                            <p class="card-release font-weight-bold">Release Year: @product.ReleaseYear</p>
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="star-rating">
+                                    <span class="bi bi-star-fill text-warning"></span>
+                                </div>
+                                <span class="ml-2">@product.Rating</span>
+                                <button class="btn btn-sm btn-success ml-3 my-custom-margin" @onclick="() => AddToCart(product)"><i class="bi-cart"></i></button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        }
-    </div>
+            }
+        </div>
+
 </section>
 
 
@@ -60,12 +61,12 @@
         }
     }
 
-    protected override async Task OnInitializedAsync() 
+    protected override async Task OnInitializedAsync()
     {
         if (Service is not null)
         {
             await Service.GetLinkGroup();
-            await OnChange.InvokeAsync(); 
+            await OnChange.InvokeAsync();
         }
     }
 
