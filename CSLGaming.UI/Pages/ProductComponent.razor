@@ -6,7 +6,11 @@
             {
                 <div class="col mb-4">
                 <div class="card h-100 bg-dark text-white" style="border: 2px solid black;">
+
+                    <button type="button" class="btn btn-primary position-relative" data-bs-toggle="modal" data-bs-target="#productModal">
                         <img src="@product.PictureUrl" class="card-img-top mx-auto my-auto mt-4" alt="@product.Name" style="width: 150px; height: 100px;">
+                    </button>
+                    
                         <div class="card-body">
                             <h5 class="card-title">@product.Name</h5>
                             @foreach (var paragraph in product.Description.Split(new[] { "</p>", "<p>" }, StringSplitOptions.RemoveEmptyEntries))
@@ -41,6 +45,7 @@
 
 </section>
 
+<ProductModalComponent />
 
 
 @code {
