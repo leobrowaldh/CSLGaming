@@ -70,6 +70,19 @@ void RegisterEndpoints()
 
         return Results.BadRequest($"Couldn't get the requested products of type {typeof(Product).Name}.");
     });
+
+    app.MapGet($"/api/products/toprated/" + "{numberOfProducts}", async (IDbService db, int numberOfProducts) =>
+    {
+        try
+        {
+            return Results.Ok(await ((ProductDbService)db).GetTopRatedAsync(numberOfProducts));
+        }
+        catch
+        {
+        }
+
+        return Results.BadRequest($"Couldn't retrieve top rated products from database.");
+    });
 }
 
 void ConfigureAutoMapper(IServiceCollection services)

@@ -42,6 +42,7 @@
     protected override async Task OnParametersSetAsync()
     {
         await Service.GetLocalStorageAsync();
+        await Service.GetTopRatedProductsAsync(3);
     }
 
     void OnChange()

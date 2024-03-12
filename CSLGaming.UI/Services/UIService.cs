@@ -18,17 +18,9 @@ namespace CSLGaming.UI.Services
         public List<LinkGroup> CategoryLinkGroups { get; private set; } =
         [
             new LinkGroup { Name = "Categories" }
-            //new LinkGroup()
-            //{
-            //Name = "Categories",
-            //Id = 0,
-            //LinkOptions= new(){
-            //    new LinkOption { Id = 0, CategoryType = "zero", IsSelected = true },
-            //    new LinkOption { Id = 1, CategoryType = "one", IsSelected = false },
-            //    new LinkOption { Id = 2, CategoryType = "two", IsSelected = false }
-            //    }
-            //}
         ];
+
+        public List<ProductGetDTO> TopRatedProducts { get; set; } = [];
 
         public async Task GetLinkGroup()
         {
@@ -47,6 +39,9 @@ namespace CSLGaming.UI.Services
 
         public async Task GetProductsAsync() =>
         Products = await productHttpClient.GetProductsAsync(CurrentCategoryId);
+
+        public async Task GetTopRatedProductsAsync(int numberOfProducts) =>
+            TopRatedProducts = await productHttpClient.GetTopRatedProductsAsync(numberOfProducts);
 
         #region Local storage
 

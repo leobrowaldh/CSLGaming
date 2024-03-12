@@ -5,7 +5,17 @@
         <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
     </div>
     <div class="carousel-inner">
-        <div class="carousel-item active">
+        @foreach (var product in Service.TopRatedProducts)
+        {
+            <div class="carousel-item active">
+                <img src=@product.PictureUrl class="d-block w-100 mx-auto" style="width: 50%;" alt="Top rated product">
+                <div class="d-none d-md-block carousel-text">
+                    <h5>@product.Name</h5>
+                    <p>@product.Price Kr</p>
+                </div>
+            </div>
+        }
+        @* <div class="carousel-item active">
             <img src="images/game1.png" class="d-block w-50 mx-auto" alt="...">
             <div class="d-none d-md-block carousel-text">
                 <h5>Tekken</h5>
@@ -25,7 +35,7 @@
                 <h5>World Of Warcraft</h5>
                 <p>Where legends come to life and adventures await at every turn</p>
             </div>
-        </div>
+        </div> *@
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -36,3 +46,7 @@
         <span class="visually-hidden">Next</span>
     </button>
 </div>
+
+@code{
+    [CascadingParameter(Name = "Service")] public UIService? Service { get; set; }
+}
