@@ -19,7 +19,8 @@
       },
       {
         "Name": "CSLGaming.UI.Admin\\CSLGaming.UI.Admin.csproj",
-        "Action": "Start"
+        "Action": "Start",
+        "DebugTarget": ""
       }
     ]
   }
