@@ -42,7 +42,7 @@
     protected override async Task OnInitializedAsync()
     {
         await Service.GetLocalStorageAsync();
-        await Service.GetTopRatedProductsAsync(3);
+        await Service.GetTopRatedProductsAsync(6);
     }
 
     void OnChange()

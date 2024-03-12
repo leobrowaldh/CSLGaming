@@ -7,13 +7,13 @@
     <div class="carousel-inner">
         @if (Service is not null && Service.TopRatedProducts.Count() > 0)
         {
-            foreach (var product in Service.TopRatedProducts)
+            for (int i = 0; i < 3; i++)
             {
                 <div class="carousel-item active">
-                    <img src=@product.PictureUrl class="d-block mx-auto my-auto mt-4" style="width: 50%;" alt="Top rated product">
+                    <img src=@Service.TopRatedProducts[i].PictureUrl class="d-block mx-auto my-auto mt-4" style="width: 50%;" alt="Top rated product">
                     <div class="d-none d-md-block carousel-text">
-                        <h5>@product.Name</h5>
-                        <p>@product.Price Kr</p>
+                        <h5>@Service.TopRatedProducts[i].Name</h5>
+                        <p>@Service.TopRatedProducts[i].Price Kr</p>
                     </div>
                 </div>
             }
