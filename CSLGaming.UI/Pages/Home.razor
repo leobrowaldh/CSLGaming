@@ -26,7 +26,7 @@
         }
         else // Render CarouselComponent and CardListComponent if no link is selected
         {
-            <div>
+            <div class="mx-auto">
                 <CarouselComponent />
                 <CardListComponent />
             </div>
@@ -39,7 +39,7 @@
 @code {
 
     //Loading local storage into Service
-    protected override async Task OnParametersSetAsync()
+    protected override async Task OnInitializedAsync()
     {
         await Service.GetLocalStorageAsync();
         await Service.GetTopRatedProductsAsync(3);
