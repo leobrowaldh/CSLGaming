@@ -42,5 +42,11 @@ namespace CSLGaming.Data.Services
             var entities = await db.Products.OrderByDescending(p => p.Rating).Take(numberOfProducts).ToListAsync();
             return mapper.Map<List<ProductGetDTO>>(entities);
         }
+
+        public async Task<ProductGetDTO> GetProductName(string NameToFind)
+        {
+            var entity = await db.Products.SingleOrDefaultAsync(p => p.Name.Equals(NameToFind));
+            return mapper.Map<ProductGetDTO>(entity);
+        }
     }
 }

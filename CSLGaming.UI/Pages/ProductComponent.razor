@@ -1,6 +1,8 @@
 ﻿@inject IMapper mapper;
 
 <section>
+
+    
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
             @foreach (var product in Service!.Products)
             {
@@ -36,6 +38,7 @@
                                 </div>
                                 <span class="ml-2">@product.Rating</span>
                                 <button class="btn btn-sm btn-success ml-3 my-custom-margin" @onclick="() => AddToCart(product)"><i class="bi-cart"></i></button>
+
                             </div>
                         </div>
                     </div>
@@ -43,15 +46,25 @@
             }
         </div>
 
+    
+
 </section>
 
-<ProductModalComponent />
+
+    <ProductModalComponent/>
+
+
+
 
 
 @code {
     [CascadingParameter(Name = "Service")] public UIService? Service { get; set; }
 
     [Parameter] public EventCallback OnChange { get; set; }
+
+    public bool Oneproduct { get; set; } = false;
+
+    
 
     async Task AddToCart(ProductGetDTO product)
     {
@@ -75,5 +88,6 @@
         }
     }
 
+   
 
 }

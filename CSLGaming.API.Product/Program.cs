@@ -83,6 +83,21 @@ void RegisterEndpoints()
 
         return Results.BadRequest($"Couldn't retrieve top rated products from database.");
     });
+
+    app.MapGet($"/api/products/productname/" + "{productName}", async (IDbService db, string productName) =>
+    {
+        try
+        {
+            return Results.Ok(await ((ProductDbService)db).GetProductName(productName));
+        }
+        catch (Exception)
+        {
+
+        }
+
+        return Results.BadRequest($"Couldnt find the entity with Name: {productName}");
+    });
+    
 }
 
 void ConfigureAutoMapper(IServiceCollection services)

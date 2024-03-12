@@ -58,4 +58,25 @@ public class ProductHttpClient
             return [];
         }
     }
+
+    public async Task<ProductGetDTO> GetProductByName(string ProductName)
+    {
+        try
+        {
+            string relativePath = $"{_httpClient.BaseAddress}/productname/{ProductName}";
+            using HttpResponseMessage response = await _httpClient.GetAsync(relativePath);
+            response.EnsureSuccessStatusCode();
+            var resultStream = await response.Content.ReadAsStreamAsync();
+            var result = await JsonSerializer.DeserializeAsync<ProductGetDTO>(resultStream,
+            new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+            return result;
+
+        }
+        catch (Exception)
+        {
+
+            return null;
+        }
+    }
 }
