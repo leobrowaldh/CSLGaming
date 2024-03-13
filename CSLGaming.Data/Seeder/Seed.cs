@@ -15,9 +15,9 @@ public class Seed
     public List<AgeRestriction> ageRestrictions = new List<AgeRestriction>() { new AgeRestriction() { Age = 3}, new AgeRestriction() { Age = 7 }, 
         new AgeRestriction() { Age = 12 }, new AgeRestriction() { Age = 16 }, new AgeRestriction() { Age = 18 } };
 
-    public List<Genere> generes = new List<Genere>() { new Genere() { GenereType = "Accion" }, new Genere() { GenereType = "Adventure" }, 
+    public List<Genere> generes = new List<Genere>() { new Genere() { GenereType = "Action" }, new Genere() { GenereType = "Adventure" }, 
         new Genere() { GenereType = "RPG" }, new Genere() { GenereType = "RTS" }, new Genere() { GenereType = "Family" }, 
-        new Genere() { GenereType = "Shooter" }, new Genere() { GenereType = "Survival" }, new Genere() { GenereType = "Action" } };
+        new Genere() { GenereType = "Shooter" }, new Genere() { GenereType = "Survival" }, new Genere() { GenereType = "Fantasy" } };
 
 
     private readonly CSLGamingContext _context;
