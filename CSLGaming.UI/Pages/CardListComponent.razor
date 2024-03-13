@@ -23,7 +23,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        if (Service != null && Service.TopRatedProducts != null && Service.TopRatedProducts.Count() > 3)
+        if (Service != null && Service.TopRatedProducts != null && Service.TopRatedProducts.Count() > 0)
         {
             for (int i = 3; i < 6; i++)
             {
