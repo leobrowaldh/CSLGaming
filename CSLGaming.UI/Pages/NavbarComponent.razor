@@ -56,14 +56,15 @@
 
             <!-- Search Form -->
             <form class="d-flex">
-                <input class="form-control me-2 bg-dark text-white" type="search" placeholder="Search" aria-label="Search" style="color: white;">
+                <input class="form-control me-2 bg-dark text-white" type="search" placeholder="Search product" aria-label="Search"
+                       @bind="SearchQuery" style="color: white;">
                 <style>
                     .form-control::placeholder {
                         color: white;
                         opacity: 1;
                     }
                 </style>
-                <button class="btn btn-outline-success" type="submit">Search</button>
+                <button class="btn btn-outline-success" type="button" @onclick="() => SearchProduct(SearchQuery)">Search</button>
             </form>
         </div>
 
@@ -105,6 +106,10 @@
     [CascadingParameter(Name = "Service")] public UIService? Service { get; set; }
     [Parameter] public EventCallback OnChange { get; set; } // Updaterar sidan
 
+    public bool showProduct { get; set; } = false;
+
+    private string? SearchQuery { get; set; }
+
     public void OnCartChange()
     {
         if (OnChange.HasDelegate && Service is not null)
@@ -142,7 +147,22 @@
         Service.CurrentCategoryId = 0;
         CurrentChoice = "Categories";
         await OnChange.InvokeAsync();
+        showProduct = false;
+        Service.ShowOneProduct = null;
         //NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
+    }
+
+    private async Task SearchProduct(string ProductToSearch)
+    {
+        if (Service is not null)
+        {
+            await Service.GetOneProductByName(ProductToSearch);
+            showProduct = true;
+            await OnChange.InvokeAsync();
+        }
+        
+
+        
     }
 }
 

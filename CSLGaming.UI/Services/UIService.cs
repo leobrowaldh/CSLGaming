@@ -22,6 +22,8 @@ namespace CSLGaming.UI.Services
 
         public List<ProductGetDTO> TopRatedProducts { get; set; } = [];
 
+        public ProductGetDTO? ShowOneProduct { get; set; }
+
         public async Task GetLinkGroup()
         {
             Categories = await categoryHttpClient.GetCategoriesAsync();
@@ -43,6 +45,9 @@ namespace CSLGaming.UI.Services
         public async Task GetTopRatedProductsAsync(int numberOfProducts) =>
             TopRatedProducts = await productHttpClient.GetTopRatedProductsAsync(numberOfProducts);
 
+        public async Task GetOneProductByName(string ProductName) =>
+            ShowOneProduct = await productHttpClient.GetProductByName(ProductName);
+       
         #region Local storage
 
         public async Task GetLocalStorageAsync() => 

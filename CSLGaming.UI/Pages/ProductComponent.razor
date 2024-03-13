@@ -1,12 +1,18 @@
 ﻿@inject IMapper mapper;
 
 <section>
+
+    
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
             @foreach (var product in Service!.Products)
             {
                 <div class="col mb-4">
                 <div class="card h-100 bg-dark text-white" style="border: 2px solid black;">
+
+                    <button type="button" class="btn btn-primary position-relative" data-bs-toggle="modal" data-bs-target="#productModal">
                         <img src="@product.PictureUrl" class="card-img-top mx-auto my-auto mt-4" alt="@product.Name" style="width: 150px; height: 100px;">
+                    </button>
+                    
                         <div class="card-body">
                             <h5 class="card-title">@product.Name</h5>
                             @foreach (var paragraph in product.Description.Split(new[] { "</p>", "<p>" }, StringSplitOptions.RemoveEmptyEntries))
@@ -32,6 +38,7 @@
                                 </div>
                                 <span class="ml-2">@product.Rating</span>
                                 <button class="btn btn-sm btn-success ml-3 my-custom-margin" @onclick="() => AddToCart(product)"><i class="bi-cart"></i></button>
+
                             </div>
                         </div>
                     </div>
@@ -39,7 +46,14 @@
             }
         </div>
 
+    
+
 </section>
+
+
+    <ProductModalComponent/>
+
+
 
 
 
@@ -47,6 +61,10 @@
     [CascadingParameter(Name = "Service")] public UIService? Service { get; set; }
 
     [Parameter] public EventCallback OnChange { get; set; }
+
+    public bool Oneproduct { get; set; } = false;
+
+    
 
     async Task AddToCart(ProductGetDTO product)
     {
@@ -70,5 +88,6 @@
         }
     }
 
+   
 
 }
