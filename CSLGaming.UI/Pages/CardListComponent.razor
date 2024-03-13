@@ -1,19 +1,40 @@
 ﻿<h3 class="d-flex justify-content-center mb-3 mt-5">Recomended for you</h3>
 
 <div class="card-list d-flex justify-content-center">
-	@foreach (ProductCard card in cards)
-	{
-		<CardsComponent Card="card" />
-	}
+    @foreach (ProductCard card in cards)
+    {
+        <CardsComponent Card="card" />
+    }
 </div>
 
 
 
+
 @code {
-	List<ProductCard> cards = new()
-	{
-		new ProductCard(){Image = "images/7dtd.png", Price = "300 Kr", Title = "Seven dies to die"},
-		new ProductCard(){Image = "images/DOW.png", Price = "100 Kr", Title = "Dawn of war"},
-		new ProductCard(){Image = "images/StrongholdDE.png", Price = "200 Kr", Title = "Stronghold Definitive Edition"}
-	};
-}
+    // List<ProductCard> cards = new()
+    // {
+    //     new ProductCard(){Image = "images/7dtd.png", Price = "300 Kr", Title = "Seven dies to die"},
+    //     new ProductCard(){Image = "images/DOW.png", Price = "100 Kr", Title = "Dawn of war"},
+    //     new ProductCard(){Image = "images/StrongholdDE.png", Price = "200 Kr", Title = "Stronghold Definitive Edition"}
+    // };
+    [CascadingParameter(Name = "Service")] public UIService? Service { get; set; }
+
+    List<ProductCard> cards = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Service != null && Service.TopRatedProducts != null)
+        {
+            for (int i = 3; i < 6; i++)
+            {
+                cards.Add(new ProductCard()
+                    {
+                        Image = Service.TopRatedProducts[i].PictureUrl,
+                        Price = $"{Service.TopRatedProducts[i].Price} Kr",
+                        Title = Service.TopRatedProducts[i].Name
+                    });
+            }
+        }
+    }
+    }
+
